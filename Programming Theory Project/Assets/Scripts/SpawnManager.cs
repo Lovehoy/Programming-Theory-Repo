@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameObject barrelPrefab;
     public GameObject minionPrefab;
     public GameObject powerupPrefab;
 
@@ -11,12 +12,24 @@ public class SpawnManager : MonoBehaviour
 
     public int waveNumber = 1;
 
-    private float spawnRange = 9.0f;
+    public float xSpawnRange = 5.0f;
+    public float ySpawnRange = 10.0f;
+    private float zSpawnRange = -10f;
+    private float startBarrelDelay = 1;
+    private float repeatBarrelRate = 5;
+
+    private Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
+
+    // get reference to public playerControllerScript
+    private PlayerMinionController playerScript;
+
     // Start is called before the first frame update
     void Start()
     {
         SpawnMinionWave(waveNumber);
+        InvokeRepeating("SpawnBarrel", startBarrelDelay, repeatBarrelRate);
 
+        playerScript = GameObject.Find("Player").GetComponent<PlayerMinionController>();
     }
 
     // Update is called once per frame
@@ -26,29 +39,13 @@ public class SpawnManager : MonoBehaviour
 
         // when to spawn another enemy
         // if enemyCount hits zero
-        if (minionCount == 0)
+        if (minionCount == 1)
         {
             //then waveNumber increment by 1 (++)
             waveNumber++;
             //then spawn waveNumber of enemy
             SpawnMinionWave(waveNumber);
-
-            //then instantiate another powerupPrefab
-            Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
-    }
-
-    // generate Vector3 data at randomPos
-    //private return gernates data
-    private Vector3 GenerateSpawnPosition()
-    {
-        // declare x and z spawnPos variables' range
-        float spawnPosX = (Random.Range(-spawnRange, spawnRange));
-        float spawnPosY = (Random.Range(-spawnRange, spawnRange));
-        // delcare randomPos
-        Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, 100);
-        // get data from method
-        return randomPos;
     }
 
     void SpawnMinionWave(int minionsToSpawn)
@@ -57,11 +54,35 @@ public class SpawnManager : MonoBehaviour
         // for loop will run Instantiate method 3 times
         // 3 perameteres needed to use for loop : where to start (i = 0), stop condition (i < 3),
         // how to get i from 0 to 3 [(i = i+1) -> (i+=1) -> (i++)]
+        minionsToSpawn = 3;
+
         for (int i = 0; i < minionsToSpawn; i++)
         {
             //Instantiate enemyPrefab using GenerateSpanPosition method
-            Vector3 spawnPos = Vector3.zero;
-            Instantiate(minionPrefab, spawnPos, minionPrefab.transform.rotation);
+            Instantiate(minionPrefab, GenerateSpawnPosition(), minionPrefab.transform.rotation);
+        }
+    }
+    
+    // generate Vector3 data at randomPos
+    //private return gernates data
+    private Vector3 GenerateSpawnPosition()
+    {
+        // declare x and z spawnPos variables' range
+        float spawnPosX = (Random.Range(-xSpawnRange, xSpawnRange));
+        float spawnPosY = (Random.Range(1, ySpawnRange));
+        // delcare randomPos
+        Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, zSpawnRange);
+        // get data from method
+        return randomPos;
+    }
+    void SpawnBarrel()
+    {
+        // IF gameOver (public class from ControllerScript) is equal to false...
+        // (== is equal to. = is equals)
+        if (playerScript.gameOver == false)
+        {
+            //THEN Instantiate spawn obstaclePrefab at Vector3 spawnPos and orient obstacle rotation
+            Instantiate(barrelPrefab, barrelspawnPos, barrelPrefab.transform.rotation);
         }
     }
 

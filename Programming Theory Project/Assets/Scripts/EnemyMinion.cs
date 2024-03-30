@@ -5,28 +5,25 @@ using UnityEngine;
 
 public class EnemyMinion : Minions
 {
+    public float speed = 1f;
 
     public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-        minionRb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
 
     }
-    public override void FixedUpdate()
+    public  void FixedUpdate()
     {
         // look twoards player direction
-         Vector3 lookDirection = (player.transform.position - transform.position);
-         minionRb.MovePosition(lookDirection * Time.deltaTime);
+        Vector3 lookDirection = (player.transform.position - transform.position).normalized ;
 
         // === enemyRb FOLLOWS player GameObject ======
         // AddForce to enemyRb with lookDirection times the enemy's speed
-        minionRb.AddForce(lookDirection * speed);
-
-        // Destroy
-        Destroy();
+        rb.AddForce(lookDirection * speed);
 
     }
 }

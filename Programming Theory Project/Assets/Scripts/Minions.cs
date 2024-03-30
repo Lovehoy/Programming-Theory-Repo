@@ -5,8 +5,9 @@ using UnityEngine;
 public class Minions : MonoBehaviour
 {
     //Parent class gives enemies and player same speed
-    public float speed = 20f;
-    public Rigidbody minionRb;
+
+    [Header("Rigidbody")]
+    public Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
@@ -15,12 +16,10 @@ public class Minions : MonoBehaviour
     }
 
     // Update is called once per frame
-    public virtual void FixedUpdate()
+    // smae for all children (movement differences in FixedUpdate)
+    void Update()
     {
-
-        // Destroy
         Destroy();
-
     }
 
     public void Destroy()
