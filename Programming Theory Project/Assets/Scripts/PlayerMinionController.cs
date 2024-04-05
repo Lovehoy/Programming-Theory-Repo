@@ -6,45 +6,70 @@ using UnityEngine;
 public class PlayerMinionController : Minions
 {
     public float speed = 5f;
-    public float jumpForce = 0.2f;
+    public float jumpForce = 10f;
+
+    public bool isGrounded;
+    public bool gameOver;
 
     private Vector3 direction;
     public Vector3 jump;
 
-    public bool isGrounded;
-    public bool gameOver;
+    //public GameObject projectilePrefab;
     void Start()
     {
-        jump = new Vector3(0.0f, .1f, 0.0f);
+        jump = new Vector3(0.0f, .5f, 0.0f);
     }
 
     public void FixedUpdate()
     {
-        Move();
-        Jump();
+       Move();
+      //  Shoot();
+     
     }
 
-    private void Move()
-    {
+    //private void OldMove()
+   // {
         // get inputs
-        direction.x = Input.GetAxis("Horizontal") * speed;
-        direction.y = Input.GetAxis("Vertical") * speed;
+     ///   direction.x = Input.GetAxis("Horizontal") * speed;
+      //  direction.y = Input.GetAxis("Vertical") * speed;
 
         // free move
+       // if (!gameOver)
+       // {
+        //    rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
+       // }
+        
+ //   }
+    private void Move()
+    {
+        //get inputs
+       direction.x = Input.GetAxis("Horizontal") * speed;
+      direction.y = Input.GetAxis("Vertical") * speed;
+
+
+        // free move
+       if (Input.GetKeyDown(KeyCode.UpArrow) && !gameOver && isGrounded)
+        {
+          rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+            Debug.Log("jump");
+
+      }
         if (!gameOver)
         {
-            rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
+           rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
+
         }
-        
+
     }
-    private void Jump()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !gameOver)
-        {
-            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
-    }
+   // private void Shoot()
+   // {
+     //   if (Input.GetKeyDown(KeyCode.Space))
+     //   {
+      //      Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+       // }
+   // }
+ 
     void OnCollisionStay()
     {
         isGrounded = true;
