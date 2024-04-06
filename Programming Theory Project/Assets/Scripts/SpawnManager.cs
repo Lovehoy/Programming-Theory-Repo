@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     public int waveNumber = 1;
 
     public float xSpawnRange = 5.0f;
-    public float ySpawnRange = 10.0f;
+    public float ySpawnRange = 10f;
     private float zSpawnRange = -10f;
     private float startBarrelDelay = 1;
     private float repeatBarrelRate = 5;

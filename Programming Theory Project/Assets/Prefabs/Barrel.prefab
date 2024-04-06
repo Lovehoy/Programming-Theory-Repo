@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4703877704959002844}
   - component: {fileID: 3630106061242164299}
   - component: {fileID: 52978420637909562}
-  - component: {fileID: -6985438051018060622}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Untagged
@@ -147,19 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0968e0a2895ea49ab1b896dda836e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-6985438051018060622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6430728597414019414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acac2db7046ecb478efecf4270f2c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canHold: 1
-  isHolding: 0
-  item: {fileID: 6430728597414019414}
-  player: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}
+  rb: {fileID: 3630106061242164299}
+  minFall: 2

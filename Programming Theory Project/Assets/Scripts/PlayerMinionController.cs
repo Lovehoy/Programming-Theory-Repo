@@ -23,6 +23,7 @@ public class PlayerMinionController : Minions
     public void FixedUpdate()
     {
        Move();
+        //if space, then force pulse all other Rb away
       //  Shoot();
      
     }
@@ -55,7 +56,7 @@ public class PlayerMinionController : Minions
             Debug.Log("jump");
 
       }
-        if (!gameOver)
+        if (!gameOver && isGrounded)
         {
            rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
 
