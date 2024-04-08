@@ -147,4 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3630106061242164299}
-  minFall: 2
+  minFallDistance: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  breakColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 0}

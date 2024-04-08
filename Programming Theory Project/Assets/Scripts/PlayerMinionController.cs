@@ -53,7 +53,7 @@ public class PlayerMinionController : Minions
         {
           rb.AddForce(jump * jumpForce, ForceMode.Impulse);
             isGrounded = false;
-            Debug.Log("jump");
+           
 
       }
         if (!gameOver && isGrounded)
@@ -63,6 +63,7 @@ public class PlayerMinionController : Minions
         }
 
     }
+   //make a pooling method for ammo
    // private void Shoot()
    // {
      //   if (Input.GetKeyDown(KeyCode.Space))

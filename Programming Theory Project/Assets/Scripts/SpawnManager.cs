@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour
     private float startBarrelDelay = 1;
     private float repeatBarrelRate = 5;
 
-    private Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
+    public Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
 
     // get reference to public playerControllerScript
     private PlayerMinionController playerScript;
