@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class EnemyMinion : Minions
+public class EnemyMinion : MonoBehaviour
 {
     public float speed = 1f;
 
     public GameObject player;
+
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()

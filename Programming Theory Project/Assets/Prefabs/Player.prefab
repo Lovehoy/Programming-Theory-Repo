@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 370775832133949182}
   - component: {fileID: 2594967351518289511}
   - component: {fileID: 1829730721522300049}
-  - component: {fileID: 2856005216392866793}
-  - component: {fileID: 7004105811444272914}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -34,8 +32,7 @@ Transform:
   m_LocalPosition: {x: 2.365, y: 0.604, z: 0}
   m_LocalScale: {x: 0.3, y: 0.45000002, z: 0.3}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1680465139422455022}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6064837477779193204
@@ -134,70 +131,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 72
+  m_Constraints: 120
   m_CollisionDetection: 0
---- !u!114 &2856005216392866793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 675621058513244702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9d1aa403ba52045b838cf8fa9d9ce6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1829730721522300049}
-  speed: 6
-  jumpForce: 0.5
-  isGrounded: 0
-  gameOver: 0
-  jump: {x: 0, y: 0, z: 0}
---- !u!114 &7004105811444272914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 675621058513244702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1acac2db7046ecb478efecf4270f2c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canHold: 1
-  isHolding: 0
-  item: {fileID: 6430728597414019414, guid: bf67306c38b786e4b818c76032a23c34, type: 3}
-  player: {fileID: 1599495099891021781}
---- !u!1 &1599495099891021781
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680465139422455022}
-  m_Layer: 0
-  m_Name: HoldDesti
-  m_TagString: HoldDesti
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1680465139422455022
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599495099891021781}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.03, y: 0.044, z: -1.18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6145582209103291864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

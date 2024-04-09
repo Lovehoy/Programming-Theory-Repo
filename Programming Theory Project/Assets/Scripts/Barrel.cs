@@ -3,51 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Barrel : MonoBehaviour
-    
-{
-    public Rigidbody rb;
-    
-    bool _grounded = false; // _grounded = isGrounded
-    bool wasGrounded;
-    bool wasFalling;
-    
-    float startOfFall;
-    float minFall = 1f;
 
-    // Start is called before the first frame update
+{
+    private float minFallDistance = 5f; // Minimum fall distance to consider as a fall
+    public LayerMask groundLayer; // Layer mask to specify which layer to consider as ground
+
+    private Vector3 startPosition; // Initial position of the object
+    private bool isFalling = false; // Flag to track if the object is falling
+    private bool isGrounded = false; // Flag to track if the object is grounded
+
+    private Rigidbody rb; // Rigidbody component of the object
+
+    public Color breakColor;
+
     void Start()
     {
-        
+        // Get the Rigidbody component
+        rb = GetComponent<Rigidbody>();
+
+        // Record the initial position of the object
+        startPosition = transform.position;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        CheckGround();
-        if (!wasGrounded && _grounded) Break();
-        if (!wasFalling && IsFalling) startOfFall = transform.position.y;
-        
+        // Check if the object is grounded
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, .15f, groundLayer);
 
-        wasGrounded = _grounded;
-        wasFalling = IsFalling;
-    }
-
-    private void Break ()
-    {
-        float fallDistance = startOfFall - transform.position.y;
-
-        if (fallDistance < minFall) 
+        // If the object is not grounded and not already falling
+        if (!isGrounded && !isFalling)
         {
-            Debug.Log(name + "Fell" + (fallDistance) + "units");
+            // Start tracking the fall
+            isFalling = true;
+            startPosition = transform.position;
         }
-     
 
+        // If the object is grounded and was falling
+        if (isGrounded && isFalling)
+        {
+            Break();
+        }
     }
 
-    void CheckGround()
+    void Break()
     {
-        _grounded = Physics.Raycast(rb.transform.position + Vector3.up, -Vector3.up, 1f);
-    }
+        // Calculate the fall distance
+        float fallDistance = startPosition.y - transform.position.y;
 
-    bool IsFalling { get { return (_grounded && rb.velocity.y < 0); } }
+        // If the fall distance is greater than the minimum fall distance
+        if (fallDistance > minFallDistance) //(rb.velocity.y < 1 && fallDistance > minFallDistance)
+        {
+            Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
+            GetComponent<Renderer>().material.color = breakColor;
+
+            rb.isKinematic = true;
+            // Deactivate the Rigidbody component
+            //Destroy(rb.gameObject);
+
+            // Deactivate the MeshRenderer component
+            isFalling = false;
+        }
+    }
 }

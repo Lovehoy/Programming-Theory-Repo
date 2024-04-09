@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     public Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
 
     // get reference to public playerControllerScript
-    private PlayerMinionController playerScript;
+    private PlayerController playerScript;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
         SpawnMinionWave(waveNumber);
         InvokeRepeating("SpawnBarrel", startBarrelDelay, repeatBarrelRate);
 
-        playerScript = GameObject.Find("Player").GetComponent<PlayerMinionController>();
+        playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMinionController : Minions
+public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
@@ -13,6 +13,8 @@ public class PlayerMinionController : Minions
 
     private Vector3 direction;
     public Vector3 jump;
+
+    public Rigidbody rb;
 
     //public GameObject projectilePrefab;
     void Start()
