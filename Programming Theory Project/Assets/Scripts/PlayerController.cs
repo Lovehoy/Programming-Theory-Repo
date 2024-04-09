@@ -25,24 +25,10 @@ public class PlayerController : MonoBehaviour
     public void FixedUpdate()
     {
        Move();
+      Shoot();
         //if space, then force pulse all other Rb away
-      //  Shoot();
-     
     }
 
-    //private void OldMove()
-   // {
-        // get inputs
-     ///   direction.x = Input.GetAxis("Horizontal") * speed;
-      //  direction.y = Input.GetAxis("Vertical") * speed;
-
-        // free move
-       // if (!gameOver)
-       // {
-        //    rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
-       // }
-        
- //   }
     private void Move()
     {
         //get inputs
@@ -66,13 +52,19 @@ public class PlayerController : MonoBehaviour
 
     }
    //make a pooling method for ammo
-   // private void Shoot()
-   // {
-     //   if (Input.GetKeyDown(KeyCode.Space))
-     //   {
-      //      Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
-       // }
-   // }
+   private void Shoot()
+   {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            // Get an object object from the pool
+            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
+            if (pooledProjectile != null)
+            {
+                pooledProjectile.SetActive(true); // activate it
+                pooledProjectile.transform.position = transform.position; // position it at player
+            }
+        }
+    }
  
     void OnCollisionStay()
     {

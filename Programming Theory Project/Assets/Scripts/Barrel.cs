@@ -28,7 +28,7 @@ public class Barrel : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is grounded
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, .15f, groundLayer);
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, .148f, groundLayer);
 
         // If the object is not grounded and not already falling
         if (!isGrounded && !isFalling)
@@ -36,6 +36,7 @@ public class Barrel : MonoBehaviour
             // Start tracking the fall
             isFalling = true;
             startPosition = transform.position;
+            Debug.Log(gameObject.name + "at" + startPosition);
         }
 
         // If the object is grounded and was falling
