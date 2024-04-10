@@ -24,27 +24,46 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-       Move();
-      Shoot();
+        if (!gameOver)
+        {
+            Move();
+            Shoot();
+        }
+        
         //if space, then force pulse all other Rb away
     }
 
     private void Move()
     {
+        // Get horizontal input
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float rotationSpeed = 20f;
+
         //get inputs
-       direction.x = Input.GetAxis("Horizontal") * speed;
+        direction.x = Input.GetAxis("Horizontal") * speed;
       direction.y = Input.GetAxis("Vertical") * speed;
 
 
-        // free move
-       if (Input.GetKeyDown(KeyCode.UpArrow) && !gameOver && isGrounded)
+        // Rotate the player character to face the direction it's moving on the x-axis
+        if (Mathf.Abs(horizontalInput) > 0.1f) // Check if there's significant horizontal input
         {
-          rb.AddForce(jump * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-           
+            // Calculate the angle in radians between the current forward direction and the movement direction
+            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
 
-      }
-        if (!gameOver && isGrounded)
+            // Create a rotation quaternion based on the target angle around the y-axis
+            Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+            // Apply the rotation to the player's transform
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+
+        // Handle jumping
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+        {
+            rb.AddForce(jump * jumpForce, ForceMode.Impulse);
+            isGrounded = false;
+        }
+        if (isGrounded)
         {
            rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
 
@@ -80,6 +99,8 @@ public class PlayerController : MonoBehaviour
             gameOver = true;
 
             Debug.Log("Game Over!");
+            rb.mass = 0f;
+
         }
     }
 }

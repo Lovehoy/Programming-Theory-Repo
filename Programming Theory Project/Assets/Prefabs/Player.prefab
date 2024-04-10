@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 370775832133949182}
   - component: {fileID: 2594967351518289511}
   - component: {fileID: 1829730721522300049}
+  - component: {fileID: 4130395211579091875}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,9 +115,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 675621058513244702}
   serializedVersion: 4
-  m_Mass: 12
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 1
+  m_Drag: 1
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -133,3 +134,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!114 &4130395211579091875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675621058513244702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd9d1aa403ba52045b838cf8fa9d9ce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  jumpForce: 11.5
+  isGrounded: 0
+  gameOver: 0
+  jump: {x: 0, y: 0, z: 0}
+  rb: {fileID: 1829730721522300049}

@@ -20,70 +20,72 @@ public class SpawnManager : MonoBehaviour
 
     public Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
 
-    // get reference to public playerControllerScript
-    private PlayerController playerScript;
+    // Flag to indicate if the player prefab is instantiated
+    private bool playerInstantiated = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Delay the spawning of minions and barrels until after the player prefab is instantiated
+        Invoke("DelayedStart", 0.5f);
+    }
+
+    // Delayed start method to ensure player prefab is instantiated first
+    void DelayedStart()
+    {
+        // Spawn the initial wave of minions
         SpawnMinionWave(waveNumber);
+
+        // Start spawning barrels
         InvokeRepeating("SpawnBarrel", startBarrelDelay, repeatBarrelRate);
 
-        playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        // Set playerInstantiated flag to true
+        playerInstantiated = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        minionCount = FindObjectsOfType<EnemyMinion>().Length;
-
-        // when to spawn another enemy
-        // if enemyCount hits zero
-        if (minionCount == 1)
+        // Check if the player prefab is instantiated before updating minion count and spawning minions
+        if (playerInstantiated)
         {
-            //then waveNumber increment by 1 (++)
-            waveNumber++;
-            //then spawn waveNumber of enemy
-            SpawnMinionWave(waveNumber);
+            minionCount = FindObjectsOfType<EnemyMinion>().Length;
+
+            // When to spawn another wave of minions
+            if (minionCount == 1)
+            {
+                // Increment wave number
+                waveNumber++;
+                // Spawn the next wave of minions
+                SpawnMinionWave(waveNumber);
+            }
         }
     }
 
     void SpawnMinionWave(int minionsToSpawn)
     {
-        // for loops control interations
-        // for loop will run Instantiate method 3 times
-        // 3 perameteres needed to use for loop : where to start (i = 0), stop condition (i < 3),
-        // how to get i from 0 to 3 [(i = i+1) -> (i+=1) -> (i++)]
-        minionsToSpawn = 3;
-
         for (int i = 0; i < minionsToSpawn; i++)
         {
-            //Instantiate enemyPrefab using GenerateSpanPosition method
+            // Instantiate minionPrefab using GenerateSpawnPosition method
             Instantiate(minionPrefab, GenerateSpawnPosition(), minionPrefab.transform.rotation);
         }
     }
-    
-    // generate Vector3 data at randomPos
-    //private return gernates data
+
     private Vector3 GenerateSpawnPosition()
     {
-        // declare x and z spawnPos variables' range
-        float spawnPosX = (Random.Range(-xSpawnRange, xSpawnRange));
-        float spawnPosY = (Random.Range(1, ySpawnRange));
-        // delcare randomPos
+        // Generate random spawn position within specified range
+        float spawnPosX = Random.Range(-xSpawnRange, xSpawnRange);
+        float spawnPosY = Random.Range(1, ySpawnRange);
         Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, zSpawnRange);
-        // get data from method
         return randomPos;
     }
+
     void SpawnBarrel()
     {
-        // IF gameOver (public class from ControllerScript) is equal to false...
-        // (== is equal to. = is equals)
-        if (playerScript.gameOver == false)
+        // If game over is false and player prefab is instantiated, spawn barrels
+        if (playerInstantiated)
         {
-            //THEN Instantiate spawn obstaclePrefab at Vector3 spawnPos and orient obstacle rotation
             Instantiate(barrelPrefab, barrelspawnPos, barrelPrefab.transform.rotation);
         }
     }
-
 }

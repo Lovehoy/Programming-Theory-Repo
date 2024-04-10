@@ -13,14 +13,14 @@ GameObject:
   - component: {fileID: 8546078892106268044}
   - component: {fileID: 112764790725272478}
   - component: {fileID: -8821278219573034965}
-  - component: {fileID: -7731233230388864578}
+  - component: {fileID: 4300121216478345456}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1547716207992854256
 Transform:
   m_ObjectHideFlags: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.539523, y: 4.4967165, z: 0.38142872}
-  m_LocalScale: {x: 0.20000002, y: 0.20000002, z: 0.20000002}
+  m_LocalScale: {x: 0.32, y: 0.32, z: 0.32}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -118,7 +118,7 @@ Rigidbody:
   m_GameObject: {fileID: 9113767716882950774}
   serializedVersion: 4
   m_Mass: 0.5
-  m_Drag: 15
+  m_Drag: 10
   m_AngularDrag: 0.001
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 64
   m_CollisionDetection: 0
---- !u!114 &-7731233230388864578
+--- !u!114 &4300121216478345456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 524e439bab90b184ea446a08eec85a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 2
   player: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}

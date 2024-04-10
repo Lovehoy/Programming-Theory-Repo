@@ -15,17 +15,24 @@ public class EnemyMinion : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        player = GameObject.Find("Player");
+        player = GameObject.FindWithTag("Player");
 
     }
-    public  void FixedUpdate()
-    {
-        // look twoards player direction
-        Vector3 lookDirection = (player.transform.position - transform.position).normalized ;
 
-        // === enemyRb FOLLOWS player GameObject ======
-        // AddForce to enemyRb with lookDirection times the enemy's speed
-        rb.AddForce(lookDirection * speed);
+        public  void Update()
+    {
+        if (player != null)
+        {
+            // look towards player direction
+            Vector3 lookDirection = (player.transform.position - transform.position).normalized;
+
+            // AddForce to enemyRb with lookDirection times the enemy's speed
+            rb.AddForce(lookDirection * speed);
+        }
+        else
+        {
+            Debug.LogWarning("Player GameObject not found or inactive.");
+        }
 
     }
 }
