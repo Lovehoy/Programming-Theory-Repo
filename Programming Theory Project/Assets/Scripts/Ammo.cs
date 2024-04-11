@@ -7,43 +7,41 @@ public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
     public float speed = 10f;
     // Reference to the player GameObject
     public GameObject player;
-    // Start is called before the first frame update
+    private PlayerController playerController;
+
     void Start()
     {
          player = GameObject.FindWithTag("Player");
-        // Ensure the player reference is set
-        if (player == null)
-        {
-            Debug.LogError("Player reference not set in Ammo script!");
-        }
-        else
-        {
-            // Instantiate the projectile in the forward direction of the player
-            transform.position = player.transform.position ;
-        }
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+      
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Move the projectile in its forward direction
-        transform.Translate(Vector3.down * Time.deltaTime * speed);
+
+
+         Vector3 playerRight = player.transform.forward;
+        Vector3 movementDirection = playerController.IsFacingRight() ? playerRight : -playerRight;
+         transform.Translate(movementDirection * Time.deltaTime * speed);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // Check if the colliding object has the "Enemy" tag
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
             // Destroy the gameobject
-            Destroy(collision.gameObject);
+            Destroy(other.gameObject);
             Destroy(gameObject);
             Debug.Log("Enemy Hit!");
         }
 
         else
         { 
-            Destroy(gameObject);
+            //Destroy(gameObject);
             Debug.Log("miss");
         }
 

@@ -9,6 +9,7 @@ TagManager:
   - HoldDesti
   - DeathZone
   - Barrel
+  - Ammo
   layers:
   - Default
   - TransparentFX
