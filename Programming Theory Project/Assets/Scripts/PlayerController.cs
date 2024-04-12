@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isGrounded;
     public bool gameOver;
+    public bool canShoot = false; // Variable to track if player can shoot
 
     private Vector3 direction;
     public Vector3 jump;
@@ -28,7 +29,11 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             Move();
-            Shoot();
+
+            if (canShoot)
+            {
+                Shoot(); // Call your shooting method
+            }
         }
         
         //if space, then force pulse all other Rb away
@@ -113,6 +118,13 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game Over!");
             rb.mass = 0f;
 
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUp"))
+        {
+            canShoot = true; // Enable shooting ability
         }
     }
 }

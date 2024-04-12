@@ -42,10 +42,6 @@ public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
         // Move the projectile along the predefined movement direction
         transform.Translate(moveDirection * speed * Time.deltaTime);
         DestroyOutOfBounds();
-
-    //  Vector3 playerRight = player.transform.forward;
-    // Vector3 movementDirection = playerController.IsFacingRight() ? playerRight : -playerRight;
-    // transform.Translate(speed  * Time.deltaTime * transform.forward);
 }
 
     private void OnTriggerEnter(Collider other)
