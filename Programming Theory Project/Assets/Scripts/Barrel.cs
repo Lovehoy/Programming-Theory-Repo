@@ -25,7 +25,7 @@ public class Barrel : MonoBehaviour
 
 
 
-    public Color breakColor;
+   // public Color breakColor;
 
     void Start()
     {
@@ -47,7 +47,7 @@ public class Barrel : MonoBehaviour
             // Start tracking the fall
             isFalling = true;
             startPosition = transform.position;
-            Debug.Log(gameObject.name + "at" + startPosition);
+            //Debug.Log(gameObject.name + "at" + startPosition);
         }
 
         // If the object is grounded and was falling
@@ -66,7 +66,8 @@ public class Barrel : MonoBehaviour
         if (fallDistance > minFallDistance) //(rb.velocity.y < 1 && fallDistance > minFallDistance)
         {
             //Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
-            GetComponent<Renderer>().material.color = breakColor;
+           // GetComponent<Renderer>().material.color = breakColor;
+
 
             rb.isKinematic = true;
             isFalling = false;
@@ -90,7 +91,7 @@ public class Barrel : MonoBehaviour
                 //Destroy(rb.gameObject);
             }
 
-
+            Destroy(gameObject);
         }
     }
    // private void InstantiatePowerup(Vector3 position)

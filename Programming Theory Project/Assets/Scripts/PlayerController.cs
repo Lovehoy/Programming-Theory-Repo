@@ -18,6 +18,14 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody rb;
 
+    public Color originalColor;
+    public Color PUpColor;
+
+    private int maxProjectiles = 30; // Maximum number of projectiles allowed per power-up
+    private int projectilesFired = 0; // Number of projectiles fired
+
+
+
     //public GameObject projectilePrefab;
     void Start()
     {
@@ -30,9 +38,23 @@ public class PlayerController : MonoBehaviour
         {
             Move();
 
-            if (canShoot)
+            if (canShoot) // (  Input.GetKeyDown(KeyCode.Space) && canShoot)
             {
-                Shoot(); // Call your shooting method
+                if (projectilesFired < maxProjectiles)
+                {
+                    Shoot(); // Call your shooting method
+                    projectilesFired++; // Increment projectiles fired
+                    GetComponent<Renderer>().material.color = PUpColor;
+                }
+              //  else
+               // {
+                //   Debug.Log("No Ammo!"); // Optionally, provide feedback to the player
+               // }
+            }
+            else
+            {
+                Debug.Log("No Ammo!"); // Optionally, provide feedback to the player
+                GetComponent<Renderer>().material.color = originalColor; // Revert to original color 
             }
         }
         
@@ -80,7 +102,7 @@ public class PlayerController : MonoBehaviour
    private void Shoot()
    {
         if (Input.GetKey(KeyCode.Space))
-        {
+       {
             // Get an object object from the pool
             GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
             if (pooledProjectile != null)
@@ -91,7 +113,7 @@ public class PlayerController : MonoBehaviour
                 //Optionally, also set the rotation to match the player's rotation
                 //pooledProjectile.transform.rotation = transform.rotation;
             }
-        }
+       }
     }
 
     public bool IsFacingRight()
@@ -125,6 +147,9 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("PowerUp"))
         {
             canShoot = true; // Enable shooting ability
+            projectilesFired = 0; // Reset projectiles fired
+            Destroy(other.gameObject);
+            Debug.Log("POWER UP!");
         }
     }
 }

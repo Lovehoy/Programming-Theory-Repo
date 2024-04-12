@@ -18,12 +18,12 @@ public class PowerUp : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Check if the colliding object has the "Enemy" tag
-        if (other.CompareTag("Player"))
-        {
+       // if (other.CompareTag("Player"))
+       // {
             // Destroy the gameobject
-           Destroy(gameObject);
-           Debug.Log("POWER UP destroyed");
-        }
+          // Destroy(gameObject);
+           //Debug.Log("POWER UP destroyed");
+       // }
 
     }
 }

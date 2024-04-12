@@ -150,5 +150,9 @@ MonoBehaviour:
   jumpForce: 11.5
   isGrounded: 0
   gameOver: 0
+  canShoot: 0
   jump: {x: 0, y: 0, z: 0}
   rb: {fileID: 1829730721522300049}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  PUpColor: {r: 1, g: 0.10395099, b: 0, a: 0}
+  maxProjectiles: 30
