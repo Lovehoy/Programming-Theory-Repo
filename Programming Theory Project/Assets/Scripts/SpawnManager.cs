@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     private float startBarrelDelay = 1;
     private float repeatBarrelRate = 5;
 
+    private Barrel barrelController;
+
     public Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
 
     // Flag to indicate if the player prefab is instantiated
@@ -28,6 +32,16 @@ public class SpawnManager : MonoBehaviour
     {
         // Delay the spawning of minions and barrels until after the player prefab is instantiated
         Invoke("DelayedStart", 0.5f);
+        barrelController = barrelController.GetComponent<Barrel>();
+
+        // Subscribe to the OnBreak event of all barrels in the scene
+        Barrel[] barrels = FindObjectsOfType<Barrel>();
+        foreach (Barrel barrel in barrels)
+        {
+            {
+                barrel.OnBreak.AddListener(SpawnPowerup);
+            }
+        }
     }
 
     // Delayed start method to ensure player prefab is instantiated first
@@ -87,5 +101,10 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(barrelPrefab, barrelspawnPos, barrelPrefab.transform.rotation);
         }
+    }
+
+    public void SpawnPowerup(Vector3 position)
+    {
+        Instantiate(powerupPrefab, position, Quaternion.identity);
     }
 }

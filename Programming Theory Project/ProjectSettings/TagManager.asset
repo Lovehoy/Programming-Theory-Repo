@@ -10,6 +10,7 @@ TagManager:
   - DeathZone
   - Barrel
   - Ammo
+  - PowerUp
   layers:
   - Default
   - TransparentFX

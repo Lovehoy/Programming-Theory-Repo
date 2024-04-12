@@ -252,7 +252,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f0968e0a2895ea49ab1b896dda836e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBreak:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2641162940439485873, guid: eb900b5eef702654fb6f6425106727fc, type: 3}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  isBroken: 0
   breakColor: {r: 1, g: 0.023584902, b: 0.023584902, a: 0}
