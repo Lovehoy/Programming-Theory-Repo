@@ -59,7 +59,7 @@ public class Barrel : MonoBehaviour
 
             rb.isKinematic = true;
             // Deactivate the Rigidbody component
-            //Destroy(rb.gameObject);
+            Destroy(rb.gameObject);
 
             // Deactivate the MeshRenderer component
             isFalling = false;

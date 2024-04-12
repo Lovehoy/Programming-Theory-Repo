@@ -13,4 +13,13 @@ public class DeathZone : MonoBehaviour
         // Destroy the other object
         Destroy(other.gameObject);
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Ammo"))
+        {
+            Debug.Log("Hit DeathZone");
+            // Destroy the Ammo object
+            Destroy(other.gameObject);
+        }
+    }
 }

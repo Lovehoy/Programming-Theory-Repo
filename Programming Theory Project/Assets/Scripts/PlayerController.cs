@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
-    float spawnOffsetDistance = .5f;
+    float spawnOffsetDistance = .222f;
 
     public bool isGrounded;
     public bool gameOver;
@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
             if (pooledProjectile != null)
             {
                 pooledProjectile.SetActive(true); // activate it
-                Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;//spawnOffsetDistance;
+                Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
                 pooledProjectile.transform.position = spawnPosition;
                 //Optionally, also set the rotation to match the player's rotation
                 //pooledProjectile.transform.rotation = transform.rotation;
