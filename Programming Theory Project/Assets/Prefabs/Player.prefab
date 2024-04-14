@@ -154,5 +154,5 @@ MonoBehaviour:
   jump: {x: 0, y: 0, z: 0}
   rb: {fileID: 1829730721522300049}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
-  PUpColor: {r: 1, g: 0.10395099, b: 0, a: 0}
-  maxProjectiles: 30
+  PUpColor: {r: 0.31248808, g: 0, b: 1, a: 0}
+  LowAmmoColor: {r: 0.0039215684, g: 1, b: 0.99098796, a: 0}

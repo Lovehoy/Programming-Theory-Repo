@@ -46,20 +46,23 @@ public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
 
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the colliding object has the "Enemy" tag
-        if (other.CompareTag("Enemy"))
+        if (!other.CompareTag("Player"))
         {
-            // Destroy the gameobject
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-            Debug.Log("Enemy Hit!");
-        }
+            // Check if the colliding object has the "Enemy" tag
+            if (other.CompareTag("Enemy"))
+            {
+                // Destroy the gameobject
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+                Debug.Log("Enemy Hit!");
+            }
 
-        else
-        { 
-            //Destroy(gameObject);
-            Debug.Log("miss");
-            Destroy(gameObject);
+            else
+            {
+                //Destroy(gameObject);
+                Debug.Log("miss");
+                Destroy(gameObject);
+            }
         }
 
     }

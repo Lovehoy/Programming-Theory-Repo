@@ -10,8 +10,9 @@ public class PlayerController : MonoBehaviour
     float spawnOffsetDistance = .222f;
 
     public bool isGrounded;
-    public bool gameOver;
+   public bool gameOver = false;
     public bool canShoot = false; // Variable to track if player can shoot
+    private bool spacePressed = false;
 
     private Vector3 direction;
     public Vector3 jump;
@@ -20,9 +21,13 @@ public class PlayerController : MonoBehaviour
 
     public Color originalColor;
     public Color PUpColor;
+    public Color LowAmmoColor;
 
-    private int maxProjectiles = 30; // Maximum number of projectiles allowed per power-up
+    private int maxProjectiles = 50; // Maximum number of projectiles allowed per power-up
+    private int lowProjectiles = 40; // Number of projectiles fired to trigger getting low
     private int projectilesFired = 0; // Number of projectiles fired
+
+    public GameManager GameManager;
 
 
 
@@ -30,6 +35,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         jump = new Vector3(0.0f, .5f, 0.0f);
+        GameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
     }
 
     public void FixedUpdate()
@@ -37,7 +43,10 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             Move();
-
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                spacePressed = false;
+            }
             // Check if the player can shoot based on available ammo
             if (canShoot && CanShoot())
             {
@@ -46,11 +55,17 @@ public class PlayerController : MonoBehaviour
                 // Change color if shooting
                 GetComponent<Renderer>().material.color = PUpColor;
                 Debug.Log("SHOOT NOW");
+                if (projectilesFired <= lowProjectiles)
+                {
+                    GetComponent<Renderer>().material.color = LowAmmoColor;
+                    Debug.Log("LOW ammo");
+                }
             }
+            
             else
             {
                 // Optionally, provide feedback to the player
-                Debug.Log("No Ammo!");
+                Debug.Log("out of ammo");
 
                 // Revert to original color
                 GetComponent<Renderer>().material.color = originalColor;
@@ -112,24 +127,25 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
     }
     // ************** SHOOTING *****************
-    private void Shoot()
-   {
-        if (Input.GetKey(KeyCode.Space))
-       {
-            // Get an object object from the pool
-            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
-            if (pooledProjectile != null)
+ 
+        private void Shoot()
+        {
+            if (Input.GetKey(KeyCode.Space) && !spacePressed)
             {
-                pooledProjectile.SetActive(true); // activate it
-                Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-                pooledProjectile.transform.position = spawnPosition;
-                //Optionally, also set the rotation to match the player's rotation
-                //pooledProjectile.transform.rotation = transform.rotation;
-                // Increment projectiles fired
-                projectilesFired++;
+                // Get an object object from the pool
+                GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
+                if (pooledProjectile != null)
+                {
+                    pooledProjectile.SetActive(true); // activate it
+                    Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+                    pooledProjectile.transform.position = spawnPosition;
+                    //Optionally, also set the rotation to match the player's rotation
+                    //pooledProjectile.transform.rotation = transform.rotation;
+                    // Increment projectiles fired
+                    projectilesFired++;
+                }
             }
-       }
-    }
+        }
     private bool CanShoot()
     {
         // Check if the number of projectiles fired is less than the maximum allowed
@@ -155,14 +171,13 @@ public class PlayerController : MonoBehaviour
     // ************** COLLISION *****************
     private void OnCollisionEnter(Collision collision)
     {
-        // if Player collides with Enemey, then "Game Over!"
+        // if Player collides with Enemy, then "Game Over!"
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameOver = true;
-
             Debug.Log("Game Over!");
             rb.mass = 0f;
-
+            GameManager.GameOver();
         }
     }
     

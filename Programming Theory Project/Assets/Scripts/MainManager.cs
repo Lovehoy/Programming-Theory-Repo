@@ -14,6 +14,7 @@ using UnityEditor;
 // Sets the script to be executed later than all default scripts
 // This is helpful for UI, since other things may need to be initialized before setting the UI
 [DefaultExecutionOrder(1000)]
+// ************* Main manages scenes and menus *****************
 public class MainManager : MonoBehaviour
 {
     public static MainManager Instance;
@@ -36,11 +37,20 @@ public class MainManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void RestartScene()
+    {
+            // Get the name of the current scene
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            // Reload the current scene
+            SceneManager.LoadScene(currentSceneName);
+    }
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
         //ensure your scnees are numbered right in File > Build Settings
     }
+
     public void ExitGame()
     {
 #if UNITY_EDITOR

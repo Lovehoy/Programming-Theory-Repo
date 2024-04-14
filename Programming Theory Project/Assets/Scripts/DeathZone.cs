@@ -6,6 +6,12 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+    public GameManager GameManager;
+
+    private void Start()
+    {
+        GameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
+    }
     private void OnTriggerEnter(Collider other)
     {
         // add tag check. code may be used to destory enemies and barrels for zone and ammo
@@ -17,9 +23,16 @@ public class DeathZone : MonoBehaviour
     {
         if (other.CompareTag("Ammo"))
         {
-            Debug.Log("Hit DeathZone");
+            Destroy(other.gameObject);
+        }
+
+        else if (other.CompareTag("Player"))
+        {
+            GameManager.GameOver();
+            Debug.Log("Player in DeathZone");
             // Destroy the Ammo object
             Destroy(other.gameObject);
         }
     }
+    // when player trigger, GameManager.GameOver()
 }
