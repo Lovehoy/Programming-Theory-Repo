@@ -38,29 +38,30 @@ public class PlayerController : MonoBehaviour
         {
             Move();
 
-            if (canShoot) // (  Input.GetKeyDown(KeyCode.Space) && canShoot)
+            // Check if the player can shoot based on available ammo
+            if (canShoot && CanShoot())
             {
-                if (projectilesFired < maxProjectiles)
-                {
-                    Shoot(); // Call your shooting method
-                    projectilesFired++; // Increment projectiles fired
-                    GetComponent<Renderer>().material.color = PUpColor;
-                }
-              //  else
-               // {
-                //   Debug.Log("No Ammo!"); // Optionally, provide feedback to the player
-               // }
+                // Call your shooting method
+                Shoot();
+                // Change color if shooting
+                GetComponent<Renderer>().material.color = PUpColor;
+                Debug.Log("SHOOT NOW");
             }
             else
             {
-                Debug.Log("No Ammo!"); // Optionally, provide feedback to the player
-                GetComponent<Renderer>().material.color = originalColor; // Revert to original color 
+                // Optionally, provide feedback to the player
+                Debug.Log("No Ammo!");
+
+                // Revert to original color
+                GetComponent<Renderer>().material.color = originalColor;
+
+                // Disable shooting ability if out of ammo
+                canShoot = false;
             }
         }
-        
         //if space, then force pulse all other Rb away
     }
-
+    // ************** MOVEMENT *****************
     private void Move()
     {
         // Get horizontal input
@@ -98,24 +99,6 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-   //make a pooling method for ammo
-   private void Shoot()
-   {
-        if (Input.GetKey(KeyCode.Space))
-       {
-            // Get an object object from the pool
-            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
-            if (pooledProjectile != null)
-            {
-                pooledProjectile.SetActive(true); // activate it
-                Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-                pooledProjectile.transform.position = spawnPosition;
-                //Optionally, also set the rotation to match the player's rotation
-                //pooledProjectile.transform.rotation = transform.rotation;
-            }
-       }
-    }
-
     public bool IsFacingRight()
     {
         // Get the player's forward direction
@@ -128,8 +111,48 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = true;
     }
+    // ************** SHOOTING *****************
+    private void Shoot()
+   {
+        if (Input.GetKey(KeyCode.Space))
+       {
+            // Get an object object from the pool
+            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
+            if (pooledProjectile != null)
+            {
+                pooledProjectile.SetActive(true); // activate it
+                Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+                pooledProjectile.transform.position = spawnPosition;
+                //Optionally, also set the rotation to match the player's rotation
+                //pooledProjectile.transform.rotation = transform.rotation;
+                // Increment projectiles fired
+                projectilesFired++;
+            }
+       }
+    }
+    private bool CanShoot()
+    {
+        // Check if the number of projectiles fired is less than the maximum allowed
+        return projectilesFired < maxProjectiles;
+    }
+    private void EnableShooting()
+    {
+        // Enable shooting ability
+        canShoot = true;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PowerUp"))
+        {
+            // canShoot = true; // Enable shooting ability
+            projectilesFired = 0; // Reset projectiles fired
+            Destroy(other.gameObject);
+            Debug.Log("POWER UP!");
+            EnableShooting();// Call function to enable shooting ability
 
-    //compares collision w/ Tags
+        }
+    }
+    // ************** COLLISION *****************
     private void OnCollisionEnter(Collision collision)
     {
         // if Player collides with Enemey, then "Game Over!"
@@ -142,14 +165,5 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("PowerUp"))
-        {
-            canShoot = true; // Enable shooting ability
-            projectilesFired = 0; // Reset projectiles fired
-            Destroy(other.gameObject);
-            Debug.Log("POWER UP!");
-        }
-    }
+    
 }
