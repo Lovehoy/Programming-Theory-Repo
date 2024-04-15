@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,22 +10,23 @@ public class GameManager : MonoBehaviour
     
 {
 
-    private int m_Points;
+    public int maxPoints = 10;
+    public int minPoints = 0;
+    public int currentPoints;
+
     public Text ScoreText;
 
     public bool gameOver = false;
     public GameObject gameOverText;
     public GameObject restartButton;
+
+    public OneShotBar oneShotBar;
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        oneShotBar = FindObjectOfType<OneShotBar>(); // Find the OneShotBar instance in the scene
+        currentPoints = minPoints;
+        oneShotBar.SetMinPoints(minPoints);
     }
 
     public void GameOver()
@@ -34,9 +36,27 @@ public class GameManager : MonoBehaviour
         gameOver = true;
     }
 
-    void AddPoint(int point)
+    public void AwardPoints( int point)
+    { 
+        if (currentPoints  < maxPoints)
+        {
+            currentPoints += point;
+            oneShotBar.SetPoints(currentPoints);
+            // You can add more logic here if needed, such as updating UI to display the new total points
+            Debug.Log("Points awarded: " + point + ", Total points: " + currentPoints);
+        }
+        
+    }
+
+    public void AwardOneShot( int points ) 
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        if (currentPoints >= maxPoints)
+        {
+            // make bar flash?? oneShotBar.SetPoints(currentPoints);
+            // You can add more logic here if needed, such as updating UI to display the new total points
+
+            Debug.Log("Award One Shot");
+        }
+
     }
 }

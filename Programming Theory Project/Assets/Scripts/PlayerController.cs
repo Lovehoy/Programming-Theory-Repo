@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
     private int maxProjectiles = 50; // Maximum number of projectiles allowed per power-up
     private int lowProjectiles = 40; // Number of projectiles fired to trigger getting low
     private int projectilesFired = 0; // Number of projectiles fired
+   // public int maxPoints = 10;
+ //   public int minPoints = 0;
+  //  public int currentPoints;
 
     public GameManager GameManager;
 
@@ -34,8 +37,9 @@ public class PlayerController : MonoBehaviour
     //public GameObject projectilePrefab;
     void Start()
     {
-        jump = new Vector3(0.0f, .5f, 0.0f);
+        //jump = new Vector3(0.0f, .5f, 0.0f);
         GameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
+        //currentPoints = minPoints;
     }
 
     public void FixedUpdate()
@@ -54,19 +58,14 @@ public class PlayerController : MonoBehaviour
                 Shoot();
                 // Change color if shooting
                 GetComponent<Renderer>().material.color = PUpColor;
-                Debug.Log("SHOOT NOW");
                 if (projectilesFired <= lowProjectiles)
                 {
                     GetComponent<Renderer>().material.color = LowAmmoColor;
-                    Debug.Log("LOW ammo");
                 }
             }
             
             else
             {
-                // Optionally, provide feedback to the player
-                Debug.Log("out of ammo");
-
                 // Revert to original color
                 GetComponent<Renderer>().material.color = originalColor;
 
@@ -89,16 +88,26 @@ public class PlayerController : MonoBehaviour
 
 
         // Rotate the player character to face the direction it's moving on the x-axis
+        // 180 rule film bros
+        //may need to be changed back. we need a character to see
         if (Mathf.Abs(horizontalInput) > 0.1f) // Check if there's significant horizontal input
         {
             // Calculate the angle in radians between the current forward direction and the movement direction
             float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
 
+            // Ensure the target angle is always a full 180 degrees
+            targetAngle += 180f;
             // Create a rotation quaternion based on the target angle around the y-axis
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
+            // Apply the rotation directly to the player's transform
+           // transform.rotation = targetRotation;
+
+            // Create a rotation quaternion based on the target angle around the y-axis
+            // Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+
             // Apply the rotation to the player's transform
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
         // Handle jumping

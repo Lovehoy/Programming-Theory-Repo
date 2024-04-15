@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
+public class Ammo : MonoBehaviour 
 {
     public float speed = 10f;
     // Reference to the player GameObject
@@ -14,8 +15,13 @@ public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
     private Vector3 initialPosition;
     private Vector3 moveDirection;
 
+    GameManager gameManager;
+
+    public const int pointsMinion = 1;
+
     void Start()
     {
+        gameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
         //  player = GameObject.FindWithTag("Player");
         //  playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
@@ -52,9 +58,11 @@ public class Ammo : MonoBehaviour //4/10 Why aren't the hits hitting?
             if (other.CompareTag("Enemy"))
             {
                 // Destroy the gameobject
+                gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
                 Destroy(gameObject);
                 Debug.Log("Enemy Hit!");
+
             }
 
             else
