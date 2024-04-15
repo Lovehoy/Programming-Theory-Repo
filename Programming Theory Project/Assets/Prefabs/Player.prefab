@@ -153,6 +153,7 @@ MonoBehaviour:
   canShoot: 0
   jump: {x: 0, y: 0, z: 0}
   rb: {fileID: 1829730721522300049}
-  originalColor: {r: 0, g: 0, b: 0, a: 0}
-  PUpColor: {r: 0.31248808, g: 0, b: 1, a: 0}
-  LowAmmoColor: {r: 0.0039215684, g: 1, b: 0.99098796, a: 0}
+  originalColor: {r: 1, g: 1, b: 1, a: 0}
+  PUpColor: {r: 1, g: 0.92892253, b: 0, a: 0}
+  LowAmmoColor: {r: 0.066037714, g: 0.04828229, b: 0.025854386, a: 0}
+  GameManager: {fileID: 0}

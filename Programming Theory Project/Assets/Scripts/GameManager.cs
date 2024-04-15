@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 
     
 {
+
+    private int m_Points;
+    public Text ScoreText;
+
     public bool gameOver = false;
     public GameObject gameOverText;
     public GameObject restartButton;
@@ -26,5 +32,11 @@ public class GameManager : MonoBehaviour
         gameOverText.SetActive(true);
         restartButton.SetActive(true);
         gameOver = true;
+    }
+
+    void AddPoint(int point)
+    {
+        m_Points += point;
+        ScoreText.text = $"Score : {m_Points}";
     }
 }
