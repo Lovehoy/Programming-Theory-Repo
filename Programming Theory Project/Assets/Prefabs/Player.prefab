@@ -157,6 +157,7 @@ MonoBehaviour:
   originalColor: {r: 1, g: 1, b: 1, a: 0}
   PUpColor: {r: 1, g: 0.92892253, b: 0, a: 0}
   LowAmmoColor: {r: 0.066037714, g: 0.04828229, b: 0.025854386, a: 0}
+  OneShotColor: {r: 1, g: 0, b: 0.095514774, a: 0}
   GameManager: {fileID: 0}
 --- !u!1 &1146212413084012211
 GameObject:
@@ -216,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8962264, g: 0.72161555, b: 0.10568706, a: 1}
+  m_Color: {r: 0.10588237, g: 0.8980392, b: 0.38015765, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -322,7 +323,7 @@ GameObject:
   - component: {fileID: 7334913916878071869}
   - component: {fileID: 9026387841211002722}
   m_Layer: 5
-  m_Name: OneShot Canvas
+  m_Name: OneShotCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,8 +437,8 @@ GameObject:
   - component: {fileID: 3394427747417328832}
   - component: {fileID: 331598000515860384}
   m_Layer: 5
-  m_Name: One Shot Bar
-  m_TagString: Untagged
+  m_Name: OneShotBar
+  m_TagString: OneShotBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -558,3 +559,4 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 2184313826648102193}
+  minPoints: 0

@@ -22,13 +22,17 @@ public class PlayerController : MonoBehaviour
     public Color originalColor;
     public Color PUpColor;
     public Color LowAmmoColor;
+    public Color OneShotColor;
 
     private int maxProjectiles = 50; // Maximum number of projectiles allowed per power-up
     private int lowProjectiles = 40; // Number of projectiles fired to trigger getting low
     private int projectilesFired = 0; // Number of projectiles fired
-   // public int maxPoints = 10;
- //   public int minPoints = 0;
-  //  public int currentPoints;
+                                      // public int maxPoints = 10;
+                                      //   public int minPoints = 0;
+                                      //  public int currentPoints;
+
+
+    GameObject oneShotAmmo;
 
     public GameManager GameManager;
 
@@ -47,6 +51,11 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             Move();
+            if (Input.GetKeyUp(KeyCode.RightAlt))
+            {
+                ShootOneShot();
+            }
+
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 spacePressed = false;
@@ -155,6 +164,24 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+    public void ShootOneShot()
+    {
+        Debug.Log("Player Controller ShootOneShot() running");
+        GetComponent<Renderer>().material.color = OneShotColor;
+        if (Input.GetKey(KeyCode.RightAlt))
+        {
+            // Get an object object from the pool
+
+           // Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+            //oneShotAmmo.transform.position = spawnPosition;
+            //Optionally, also set the rotation to match the player's rotation
+            //pooledProjectile.transform.rotation = transform.rotation;
+            // Increment projectiles fired
+            // projectilesFired++;
+            GetComponent<Renderer>().material.color = originalColor;
+        }
+    }
     private bool CanShoot()
     {
         // Check if the number of projectiles fired is less than the maximum allowed

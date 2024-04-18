@@ -68,7 +68,7 @@ public class Ammo : MonoBehaviour
             else
             {
                 //Destroy(gameObject);
-                Debug.Log("miss");
+               // Debug.Log("miss");
                 Destroy(gameObject);
             }
         }
@@ -81,17 +81,17 @@ public class Ammo : MonoBehaviour
         float fwBound = 7f;
         if (transform.position.x > rightBound)
         {
-            Debug.Log("rightBound");
+           // Debug.Log("rightBound");
             Destroy(gameObject);
         }
         else if (transform.position.x < -rightBound)
         {
-            Debug.Log("leftBound");
+           // Debug.Log("leftBound");
             Destroy(gameObject);
         }
         else if (transform.position.z > fwBound)
         {
-            Debug.Log("fwBound");
+            //Debug.Log("fwBound");
             Destroy(gameObject);
         }
     }

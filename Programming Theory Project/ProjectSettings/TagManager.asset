@@ -11,6 +11,7 @@ TagManager:
   - Barrel
   - Ammo
   - PowerUp
+  - OneShotBar
   layers:
   - Default
   - TransparentFX

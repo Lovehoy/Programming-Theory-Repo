@@ -10,7 +10,22 @@ public class OneShotBar : MonoBehaviour
     public Slider slider;
     public Gradient gradient;
     public Image fill;
+    GameManager gameManager;
+
+    public int minPoints = 0;
     // Start is called before the first frame update
+    void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene!");
+            return;
+        }
+
+       // SetMinPoints(minPoints);
+        // Now you can use the gameManager reference to access GameManager's methods or properties
+    }
     public void SetMinPoints(int point)
     {
         slider.minValue = point;
@@ -24,3 +39,5 @@ public class OneShotBar : MonoBehaviour
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
 }
+
+
