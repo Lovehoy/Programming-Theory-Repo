@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody rb;
 
+    public GameObject oneShotPrefab;
+
     public Color originalColor;
     public Color PUpColor;
     public Color LowAmmoColor;
@@ -30,10 +32,6 @@ public class PlayerController : MonoBehaviour
                                       // public int maxPoints = 10;
                                       //   public int minPoints = 0;
                                       //  public int currentPoints;
-
-
-    GameObject oneShotAmmo;
-
     public GameManager GameManager;
 
 
@@ -51,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             Move();
-            if (Input.GetKeyUp(KeyCode.RightAlt))
+            if (Input.GetKey(KeyCode.RightAlt))
             {
                 ShootOneShot();
             }
@@ -167,20 +165,17 @@ public class PlayerController : MonoBehaviour
 
     public void ShootOneShot()
     {
-        Debug.Log("Player Controller ShootOneShot() running");
+        Debug.Log("ShootOneShot() pressed");
         GetComponent<Renderer>().material.color = OneShotColor;
-        if (Input.GetKey(KeyCode.RightAlt))
-        {
-            // Get an object object from the pool
 
-           // Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-            //oneShotAmmo.transform.position = spawnPosition;
-            //Optionally, also set the rotation to match the player's rotation
-            //pooledProjectile.transform.rotation = transform.rotation;
-            // Increment projectiles fired
-            // projectilesFired++;
-            GetComponent<Renderer>().material.color = originalColor;
-        }
+        // Calculate the spawn position
+        Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+
+        // Instantiate the oneShotPrefab at the calculated spawn position
+        Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
+
+        GetComponent<Renderer>().material.color = originalColor;
+        Debug.Log("ONE SHOT SHOT");
     }
     private bool CanShoot()
     {

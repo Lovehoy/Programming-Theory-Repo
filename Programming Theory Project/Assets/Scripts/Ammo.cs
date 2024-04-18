@@ -22,10 +22,7 @@ public class Ammo : MonoBehaviour
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
-        //  player = GameObject.FindWithTag("Player");
-        //  playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        // Find the player GameObject by tag
+        
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerController = playerTransform.GetComponent<PlayerController>();
 

@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
        
         oneShotBar.SetMinPoints(minPoints);
 
-        GameObject player = GameObject.Find("Player");
+        GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
             // Get the PlayerController component attached to the player GameObject

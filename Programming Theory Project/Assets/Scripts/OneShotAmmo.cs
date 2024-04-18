@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class OneShotAmmo : Ammo
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -25,12 +14,11 @@ public class OneShotAmmo : Ammo
                 // Destroy the gameobject
                 //gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
-                Destroy(gameObject);
-                Debug.Log("Enemy Hit!");
+                Debug.Log("On Shot Hit!");
 
             }
 
-            else
+            else if (other.CompareTag("DeathZone"))
             {
                 //Destroy(gameObject);
                 Debug.Log("miss");
