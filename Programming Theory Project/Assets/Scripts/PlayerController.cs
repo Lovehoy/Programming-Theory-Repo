@@ -27,8 +27,8 @@ public class PlayerController : MonoBehaviour
     public Color LowAmmoColor;
     public Color OneShotColor;
 
-    private int maxProjectiles = 50; // Maximum number of projectiles allowed per power-up
-    private int lowProjectiles = 40; // Number of projectiles fired to trigger getting low
+    private int maxProjectiles = 5; // Maximum number of projectiles allowed per power-up
+    private int lowProjectiles = 3; // Number of projectiles fired to trigger getting low
     private int projectilesFired = 0; // Number of projectiles fired
                                       // public int maxPoints = 10;
                                       //   public int minPoints = 0;
@@ -45,17 +45,16 @@ public class PlayerController : MonoBehaviour
         //currentPoints = minPoints;
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (!gameOver)
         {
-            Move();
          //   if (Input.GetKey(KeyCode.RightAlt))
             //{
             //    ShootOneShot();
            // }
 
-            if (Input.GetKeyUp(KeyCode.Space))
+           if (Input.GetKeyUp(KeyCode.Space))
             {
                 spacePressed = false;
             }
@@ -88,6 +87,11 @@ public class PlayerController : MonoBehaviour
             ShootOneShot();
         }
         
+    }
+    private void FixedUpdate()
+    {
+        if (!gameOver)
+            Move();
     }
     // ************** MOVEMENT *****************
     private void Move()
@@ -155,6 +159,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space) && !spacePressed)
             {
+            spacePressed = true;
                 // Get an object object from the pool
                 GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
                 if (pooledProjectile != null)

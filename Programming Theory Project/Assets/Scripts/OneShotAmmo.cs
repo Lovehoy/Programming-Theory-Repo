@@ -14,7 +14,7 @@ public class OneShotAmmo : Ammo
                 // Destroy the gameobject
                 //gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
-                Debug.Log("On Shot Hit!");
+                Debug.Log("One Shot Hit!");
 
             }
 
