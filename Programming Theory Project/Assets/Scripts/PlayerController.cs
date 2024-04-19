@@ -34,12 +34,13 @@ public class PlayerController : MonoBehaviour
                                       //   public int minPoints = 0;
                                       //  public int currentPoints;
     public GameManager GameManager;
-
+    Animator animator;
 
 
     //public GameObject projectilePrefab;
     void Start()
     {
+        animator = GetComponent<Animator>();
         //jump = new Vector3(0.0f, .5f, 0.0f);
         GameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
         //currentPoints = minPoints;
@@ -159,6 +160,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space) && !spacePressed)
             {
+            animator.SetTrigger("Shoot");
             spacePressed = true;
                 // Get an object object from the pool
                 GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
@@ -181,8 +183,8 @@ public class PlayerController : MonoBehaviour
         //****** START HERE run function on bool (preferably from GameManager "oneShotAwarded")
         if (Input.GetKey(KeyCode.RightAlt))
         {
+            animator.SetTrigger("Shoot");
             Debug.Log("ShootOneShot() pressed");
-            
             // Calculate the spawn position
             Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
             // Instantiate the oneShotPrefab at the calculated spawn position
@@ -221,6 +223,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameOver = true;
+            animator.SetTrigger("Die");
             Debug.Log("Game Over!");
             rb.mass = 0f;
             GameManager.GameOver();

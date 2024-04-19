@@ -32,7 +32,7 @@ public class Ammo : MonoBehaviour
 
         // Determine the initial movement direction based on the player's facing direction
         Vector3 playerForward = playerTransform.forward;
-        moveDirection = playerController.IsFacingRight() ? playerForward : -playerForward;
+        moveDirection = playerController.IsFacingRight() ? -playerForward : playerForward;
 
         // Set the initial position of the projectile
         transform.position = initialPosition;
