@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
    public bool gameOver = false;
     public bool canShoot = false; // Variable to track if player can shoot
     private bool spacePressed = false;
+    public bool oneShotAwarded = false;
 
     private Vector3 direction;
     public Vector3 jump;
@@ -49,10 +50,10 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             Move();
-            if (Input.GetKey(KeyCode.RightAlt))
-            {
-                ShootOneShot();
-            }
+         //   if (Input.GetKey(KeyCode.RightAlt))
+            //{
+            //    ShootOneShot();
+           // }
 
             if (Input.GetKeyUp(KeyCode.Space))
             {
@@ -81,6 +82,12 @@ public class PlayerController : MonoBehaviour
             }
         }
         //if space, then force pulse all other Rb away
+        if (oneShotAwarded)
+        {
+            GetComponent<Renderer>().material.color = OneShotColor;
+            ShootOneShot();
+        }
+        
     }
     // ************** MOVEMENT *****************
     private void Move()
@@ -165,17 +172,20 @@ public class PlayerController : MonoBehaviour
 
     public void ShootOneShot()
     {
-        Debug.Log("ShootOneShot() pressed");
-        GetComponent<Renderer>().material.color = OneShotColor;
-
-        // Calculate the spawn position
-        Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-
-        // Instantiate the oneShotPrefab at the calculated spawn position
-        Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
-
-        GetComponent<Renderer>().material.color = originalColor;
-        Debug.Log("ONE SHOT SHOT");
+       oneShotAwarded = true;
+        //****** START HERE run function on bool (preferably from GameManager "oneShotAwarded")
+        if (Input.GetKey(KeyCode.RightAlt))
+        {
+            Debug.Log("ShootOneShot() pressed");
+            
+            // Calculate the spawn position
+            Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+            // Instantiate the oneShotPrefab at the calculated spawn position
+            Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
+            GetComponent<Renderer>().material.color = originalColor;
+            Debug.Log("ONE SHOT SHOT");
+            oneShotAwarded = false;
+        }
     }
     private bool CanShoot()
     {

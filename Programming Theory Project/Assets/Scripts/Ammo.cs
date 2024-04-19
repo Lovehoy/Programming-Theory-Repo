@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Ammo : MonoBehaviour 
 {
-    public float speed = 10f;
+ private float speed = 10f;
     // Reference to the player GameObject
     public GameObject player;
     private PlayerController playerController;
