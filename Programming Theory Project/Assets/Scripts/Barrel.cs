@@ -12,7 +12,7 @@ public class Barrel : MonoBehaviour
     public UnityEvent<Vector3> OnBreak;
     // public event Action<Vector3> OnBarrelBreak;
 
-    private float minFallDistance = 5f; // Minimum fall distance to consider as a fall
+    private float minFallDistance = 1f; // Minimum fall distance to consider as a fall
     public LayerMask groundLayer; // Layer mask to specify which layer to consider as ground
 
     private Vector3 startPosition; // Initial position of the object

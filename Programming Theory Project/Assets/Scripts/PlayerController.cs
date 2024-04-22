@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 direction;
     public Vector3 jump;
+    private Vector3 moveDirection;
 
     public Rigidbody rb;
 
@@ -34,8 +35,8 @@ public class PlayerController : MonoBehaviour
                                       //   public int minPoints = 0;
                                       //  public int currentPoints;
     public GameManager GameManager;
-    Animator animator;
-
+    [SerializeField] private Animator animator = null;
+    private bool isShooting = false;
 
     //public GameObject projectilePrefab;
     void Start()
@@ -65,17 +66,17 @@ public class PlayerController : MonoBehaviour
                 // Call your shooting method
                 Shoot();
                 // Change color if shooting
-                GetComponent<Renderer>().material.color = PUpColor;
+              //  GetComponent<Renderer>().material.color = PUpColor;
                 if (projectilesFired <= lowProjectiles)
                 {
-                    GetComponent<Renderer>().material.color = LowAmmoColor;
+                   // GetComponent<Renderer>().material.color = LowAmmoColor;
                 }
             }
             
             else
             {
                 // Revert to original color
-                GetComponent<Renderer>().material.color = originalColor;
+                // GetComponent<Renderer>().material.color = originalColor;
 
                 // Disable shooting ability if out of ammo
                 canShoot = false;
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
         //if space, then force pulse all other Rb away
         if (oneShotAwarded)
         {
-            GetComponent<Renderer>().material.color = OneShotColor;
+           // GetComponent<Renderer>().material.color = OneShotColor;
             ShootOneShot();
         }
         
@@ -128,6 +129,7 @@ public class PlayerController : MonoBehaviour
             // Apply the rotation to the player's transform
              transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
+       
 
         // Handle jumping
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
@@ -139,6 +141,35 @@ public class PlayerController : MonoBehaviour
         {
            rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
 
+        }
+
+        moveDirection = new Vector3(direction.x, 0, direction.y);
+
+     
+      if (moveDirection == Vector3.right)
+        {
+            animator.SetBool("Right", true);
+        }
+
+          else if (moveDirection == Vector3.left)
+        {
+            animator.SetBool("Left", true);
+        }
+
+        else if (moveDirection == Vector3.up)
+        {
+            animator.SetBool("Jump", true);
+        }
+
+        else if (moveDirection == Vector3.down)
+        {
+            animator.SetBool("Fall", true);
+        }
+
+        else
+        {
+            //Idle
+            animator.SetBool("Idle", true);
         }
 
     }
@@ -160,7 +191,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space) && !spacePressed)
             {
-            animator.SetTrigger("Shoot");
+
+            //  isShooting = true;
             spacePressed = true;
                 // Get an object object from the pool
                 GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
@@ -173,11 +205,24 @@ public class PlayerController : MonoBehaviour
                     //pooledProjectile.transform.rotation = transform.rotation;
                     // Increment projectiles fired
                     projectilesFired++;
-                }
+                //isShooting = false;
             }
+            }
+          //  else
+     //   {
+          //  animator.ResetTrigger("Shoot");
+      //  }
+          
         }
 
-    public void ShootOneShot()
+    // This function is called by the Animation Event in the shoot animation clip
+   // public void ResetShootParameter()
+    //{
+     //   spacePressed = false;
+    //}
+
+
+public void ShootOneShot()
     {
        oneShotAwarded = true;
         //****** START HERE run function on bool (preferably from GameManager "oneShotAwarded")
@@ -189,7 +234,7 @@ public class PlayerController : MonoBehaviour
             Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
             // Instantiate the oneShotPrefab at the calculated spawn position
             Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
-            GetComponent<Renderer>().material.color = originalColor;
+           // GetComponent<Renderer>().material.color = originalColor;
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;
         }
@@ -223,7 +268,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             gameOver = true;
-            animator.SetTrigger("Die");
+            animator.SetBool("Die", true);
             Debug.Log("Game Over!");
             rb.mass = 0f;
             GameManager.GameOver();
