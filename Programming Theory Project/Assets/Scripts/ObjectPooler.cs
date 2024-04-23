@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
+    // for ammo
     public static ObjectPooler SharedInstance;
     public List<GameObject> pooledObjects;
     public GameObject objectToPool;

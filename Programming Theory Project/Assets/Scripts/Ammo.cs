@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class Ammo : MonoBehaviour 
 {
  private float speed = 10f;
+
+  float spawnOffsetDistance = -.5f;
     // Reference to the player GameObject
     public GameObject player;
     private PlayerController playerController;
@@ -28,7 +30,7 @@ public class Ammo : MonoBehaviour
 
         // Set the initial position of the projectile to be slightly offset from the player's position
         // Change the offset value as needed to place the projectile on the desired side of the player
-        initialPosition = playerTransform.position + playerTransform.forward * 1.5f;
+        initialPosition = playerTransform.position + playerTransform.forward * spawnOffsetDistance;
 
         // Determine the initial movement direction based on the player's facing direction
         Vector3 playerForward = playerTransform.forward;

@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
-    float spawnOffsetDistance = .222f;
+ //   float spawnOffsetDistance = 1f;
 
     public bool isGrounded;
    public bool gameOver = false;
@@ -188,32 +188,33 @@ public class PlayerController : MonoBehaviour
     // ************** SHOOTING *****************
  
         private void Shoot()
-        {
+   {
             if (Input.GetKey(KeyCode.Space) && !spacePressed)
-            {
+        {
 
-            //  isShooting = true;
+            animator.SetTrigger("Shoot");
             spacePressed = true;
                 // Get an object object from the pool
                 GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
                 if (pooledProjectile != null)
                 {
                     pooledProjectile.SetActive(true); // activate it
-                    Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-                    pooledProjectile.transform.position = spawnPosition;
+              //  Vector3 spawnPosition = transform.position + transform.forward; * spawnOffsetDistance;
+                  //  pooledProjectile.transform.position = spawnPosition;
                     //Optionally, also set the rotation to match the player's rotation
                     //pooledProjectile.transform.rotation = transform.rotation;
                     // Increment projectiles fired
                     projectilesFired++;
                 //isShooting = false;
             }
-            }
-          //  else
-     //   {
-          //  animator.ResetTrigger("Shoot");
-      //  }
-          
+           else
+           {
+               animator.ResetTrigger("Shoot");
+           }
+
         }
+
+    }
 
     // This function is called by the Animation Event in the shoot animation clip
    // public void ResetShootParameter()
@@ -231,9 +232,9 @@ public void ShootOneShot()
             animator.SetTrigger("Shoot");
             Debug.Log("ShootOneShot() pressed");
             // Calculate the spawn position
-            Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
+         //   Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
             // Instantiate the oneShotPrefab at the calculated spawn position
-            Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
+           // Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
            // GetComponent<Renderer>().material.color = originalColor;
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;

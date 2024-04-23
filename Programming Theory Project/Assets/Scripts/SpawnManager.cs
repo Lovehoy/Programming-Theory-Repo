@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -26,6 +27,8 @@ public class SpawnManager : MonoBehaviour
 
     // Flag to indicate if the player prefab is instantiated
     private bool playerInstantiated = false;
+
+    public event Action BarrelSpawned; // Define an event
 
     // Start is called before the first frame update
     void Start()
@@ -88,8 +91,8 @@ public class SpawnManager : MonoBehaviour
     private Vector3 GenerateSpawnPosition()
     {
         // Generate random spawn position within specified range
-        float spawnPosX = Random.Range(-xSpawnRange, xSpawnRange);
-        float spawnPosY = Random.Range(1, ySpawnRange);
+        float spawnPosX = UnityEngine.Random.Range(-xSpawnRange, xSpawnRange);
+        float spawnPosY = UnityEngine.Random.Range(1, ySpawnRange);
         Vector3 randomPos = new Vector3(spawnPosX, spawnPosY, zSpawnRange);
         return randomPos;
     }
@@ -100,6 +103,7 @@ public class SpawnManager : MonoBehaviour
         if (playerInstantiated)
         {
             Instantiate(barrelPrefab, barrelspawnPos, barrelPrefab.transform.rotation);
+            BarrelSpawned?.Invoke(); // Trigger the event
         }
     }
 
