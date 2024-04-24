@@ -21,10 +21,18 @@ public class Ammo : MonoBehaviour
 
     public const int pointsMinion = 1;
 
+
+    public GameObject hitParticlePrefab; // Reference to the particle effect prefab
+    public GameObject missParticlePrefab; // Reference to the particle effect prefab
+
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
-        
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager not found in the scene!");
+        }
+
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerController = playerTransform.GetComponent<PlayerController>();
 
@@ -51,6 +59,7 @@ public class Ammo : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (!other.CompareTag("Player"))
         {
             // Check if the colliding object has the "Enemy" tag
@@ -61,14 +70,17 @@ public class Ammo : MonoBehaviour
                 Destroy(other.gameObject);
                 Destroy(gameObject);
                 Debug.Log("Enemy Hit!");
-
+                Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
             }
 
             else
             {
                 //Destroy(gameObject);
-               // Debug.Log("miss");
+                // Debug.Log("miss");
+                
                 Destroy(gameObject);
+                Debug.Log("Miss");
+                Instantiate(missParticlePrefab, transform.position, Quaternion.identity);
             }
         }
 

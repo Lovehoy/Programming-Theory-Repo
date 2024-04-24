@@ -35,8 +35,17 @@ public class PlayerController : MonoBehaviour
                                       //   public int minPoints = 0;
                                       //  public int currentPoints;
     public GameManager GameManager;
+    
     [SerializeField] private Animator animator = null;
-    private bool isShooting = false;
+
+    public GameObject shootParticlePrefab; // Reference to the particle effect prefab
+    public GameObject lowParticlePrefab; // Reference to the particle effect prefab
+    public GameObject oneShotParticlePrefab; // Reference to the particle effect prefab
+    private List<GameObject> activeParticles = new List<GameObject>(); // Store references to active particle systems
+
+
+
+    //private bool isShooting = false;
 
     //public GameObject projectilePrefab;
     void Start()
@@ -66,26 +75,37 @@ public class PlayerController : MonoBehaviour
                 // Call your shooting method
                 Shoot();
                 // Change color if shooting
-              //  GetComponent<Renderer>().material.color = PUpColor;
+                //Instantiate(shootParticlePrefab, transform.position, Quaternion.identity); //GetComponent<Renderer>().material.color = PUpColor;
+                GameObject shootParticle = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
+                activeParticles.Add(shootParticle);
+
                 if (projectilesFired <= lowProjectiles)
                 {
-                   // GetComponent<Renderer>().material.color = LowAmmoColor;
+                    GameObject lowParticle = Instantiate(lowParticlePrefab, transform.position, Quaternion.identity);
+                    activeParticles.Add(lowParticle);
+                    //Instantiate(lowParticlePrefab, transform.position, Quaternion.identity); // ; GetComponent<Renderer>().material.color = LowAmmoColor;
                 }
             }
             
             else
             {
                 // Revert to original color
-                // GetComponent<Renderer>().material.color = originalColor;
+                // ************ Stpp partical effect ************ // GetComponent<Renderer>().material.color = originalColor;
 
                 // Disable shooting ability if out of ammo
+                DeactivateActiveParticles();
                 canShoot = false;
             }
         }
         //if space, then force pulse all other Rb away
         if (oneShotAwarded)
         {
-           // GetComponent<Renderer>().material.color = OneShotColor;
+            DeactivateActiveParticles();
+
+            Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity);
+            ShootOneShot();
+
+            //Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity); // GetComponent<Renderer>().material.color = OneShotColor;
             ShootOneShot();
         }
         
@@ -207,10 +227,10 @@ public class PlayerController : MonoBehaviour
                     projectilesFired++;
                 //isShooting = false;
             }
-           else
-           {
-               animator.ResetTrigger("Shoot");
-           }
+          // else
+          // {
+          //     animator.ResetTrigger("Shoot");
+          // }
 
         }
 
@@ -235,7 +255,7 @@ public void ShootOneShot()
          //   Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
             // Instantiate the oneShotPrefab at the calculated spawn position
            // Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
-           // GetComponent<Renderer>().material.color = originalColor;
+          // ************ Play partical effect ************ // GetComponent<Renderer>().material.color = originalColor;
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;
         }
@@ -275,5 +295,14 @@ public void ShootOneShot()
             GameManager.GameOver();
         }
     }
-    
+
+    private void DeactivateActiveParticles()
+    {
+        foreach (GameObject particle in activeParticles)
+        {
+            particle.SetActive(false);
+        }
+        activeParticles.Clear(); // Clear the list
+    }
+
 }

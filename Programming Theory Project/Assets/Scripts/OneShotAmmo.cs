@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OneShotAmmo : Ammo
 {
+   
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -11,6 +12,7 @@ public class OneShotAmmo : Ammo
             // Check if the colliding object has the "Enemy" tag
             if (other.CompareTag("Enemy"))
             {
+                
                 // Destroy the gameobject
                 //gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
@@ -20,6 +22,7 @@ public class OneShotAmmo : Ammo
 
             else if (other.CompareTag("DeathZone"))
             {
+                
                 //Destroy(gameObject);
                 Debug.Log("miss");
                 Destroy(gameObject);

@@ -36,6 +36,13 @@ public class SpawnManager : MonoBehaviour
         // Delay the spawning of minions and barrels until after the player prefab is instantiated
         Invoke("DelayedStart", 0.5f);
         // Start spawning barrels
+       
+    }
+
+    // Delayed start method to ensure player prefab is instantiated first
+    void DelayedStart()
+    {
+
         InvokeRepeating("SpawnBarrel", startBarrelDelay, repeatBarrelRate);
         // Subscribe to the OnBreak event of all barrels in the scene
         barrelController = barrelController.GetComponent<Barrel>();
@@ -46,11 +53,6 @@ public class SpawnManager : MonoBehaviour
                 barrel.OnBreak.AddListener(SpawnPowerup);
             }
         }
-    }
-
-    // Delayed start method to ensure player prefab is instantiated first
-    void DelayedStart()
-    {
         // Spawn the initial wave of minions
         SpawnMinionWave(waveNumber);
 
