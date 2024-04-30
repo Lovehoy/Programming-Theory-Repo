@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
-    SpawnManager spawnManager;
+    BarrelSpawnManager barrelSpawnManager;
 
     [SerializeField] private Animator animator = null;
 
@@ -12,10 +12,10 @@ public class Boss : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        spawnManager = FindObjectOfType<SpawnManager>();
-        if (spawnManager != null)
+        barrelSpawnManager = FindObjectOfType<BarrelSpawnManager>();
+        if (barrelSpawnManager != null)
         {
-            spawnManager.BarrelSpawned += OnBarrelSpawned; // Subscribe to the event
+            barrelSpawnManager.BarrelSpawned += OnBarrelSpawned; // Subscribe to the event
         }
     }
 

@@ -50,14 +50,7 @@ public class GameManager : MonoBehaviour
     {
      //oneShotAwarded = false;
  //  currentPoints = minPoints;
-        oneShotBar = FindObjectOfType<OneShotBar>();
-        if (oneShotBar == null)
-        {
-            Debug.LogError("One Shot Bar not found by game manager!");
-            return;
-        }
-       
-        oneShotBar.SetMinPoints(minPoints);
+        
 
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -73,6 +66,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("Player GameObject not found");
         }
+
+        oneShotBar = FindObjectOfType<OneShotBar>();
+        if (oneShotBar == null)
+        {
+            Debug.LogError("One Shot Bar not found by game manager!");
+            return;
+        }
+
+        oneShotBar.SetMinPoints(minPoints);
     }
 
     private void Update()

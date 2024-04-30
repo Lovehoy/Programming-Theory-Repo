@@ -119,5 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}
-  hitParticlePrefab: {fileID: 3940036432451144812, guid: e7195681d4821c847a757d5174cae6ab, type: 3}
-  missParticlePrefab: {fileID: 8714244275622671896, guid: abf8d5b763621654486813c5c8af8234, type: 3}
+  hitParticlePrefab: {fileID: 3940036432451144814, guid: e7195681d4821c847a757d5174cae6ab, type: 3}
+  missParticlePrefab: {fileID: 8714244275622671898, guid: abf8d5b763621654486813c5c8af8234, type: 3}

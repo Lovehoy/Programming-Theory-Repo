@@ -7,12 +7,10 @@ using UnityEngine.Events;
 using UnityEngine.UIElements;
 
 public class Barrel : MonoBehaviour
-
 {
     public UnityEvent<Vector3> OnBreak;
-    // public event Action<Vector3> OnBarrelBreak;
-
-    private float minFallDistance = 1f; // Minimum fall distance to consider as a fall
+   
+    private float minFallDistance = .005f; // Minimum fall distance to consider as a fall
     public LayerMask groundLayer; // Layer mask to specify which layer to consider as ground
 
     private Vector3 startPosition; // Initial position of the object
@@ -22,10 +20,6 @@ public class Barrel : MonoBehaviour
     private bool isGrounded = false; // Flag to track if the object is grounded
 
     private Rigidbody rb; // Rigidbody component of the object
-
-
-
-   // public Color breakColor;
 
     void Start()
     {
@@ -39,7 +33,8 @@ public class Barrel : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is grounded
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, .148f, groundLayer);
+        float groundDistance = .154f;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
 
         // If the object is not grounded and not already falling
         if (!isGrounded && !isFalling)
@@ -47,7 +42,7 @@ public class Barrel : MonoBehaviour
             // Start tracking the fall
             isFalling = true;
             startPosition = transform.position;
-            //Debug.Log(gameObject.name + "at" + startPosition);
+           // Debug.Log(gameObject.name + "at" + startPosition);
         }
 
         // If the object is grounded and was falling
@@ -65,9 +60,8 @@ public class Barrel : MonoBehaviour
         // If the fall distance is greater than the minimum fall distance
         if (fallDistance > minFallDistance) //(rb.velocity.y < 1 && fallDistance > minFallDistance)
         {
-            //Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
-           // GetComponent<Renderer>().material.color = breakColor;
-
+            Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
+          // GetComponent<Renderer>().material.color = breakColor;
 
             rb.isKinematic = true;
             isFalling = false;
@@ -78,25 +72,15 @@ public class Barrel : MonoBehaviour
 
             if (isBroken)
             {
-                SpawnManager spawnManager = FindObjectOfType<SpawnManager>();
-                if (spawnManager != null)
+                BarrelSpawnManager barrelSpawnManager = FindObjectOfType<BarrelSpawnManager>();
+                if (barrelSpawnManager != null)
                 {
-                    spawnManager.SpawnPowerup(transform.position);
+                    barrelSpawnManager.SpawnPowerup(transform.position);
                 }
-                //OnBarrelBreak?.Invoke(transform.position);
-
-                //  InstantiatePowerup(transform.position);
-                // Deactivate the MeshRenderer component
-                // Deactivate the Rigidbody component
-                //Destroy(rb.gameObject);
             }
 
             Destroy(gameObject);
         }
     }
-   // private void InstantiatePowerup(Vector3 position)
-   // {
-        // Instantiate the powerup prefab at the specified position
-       // Instantiate(powerupPrefab, position, Quaternion.identity);
-  //  }
+   
 }

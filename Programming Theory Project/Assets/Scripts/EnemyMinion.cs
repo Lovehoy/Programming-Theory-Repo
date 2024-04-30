@@ -18,7 +18,6 @@ public class EnemyMinion : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
     }
-
         public  void Update()
     {
         if (player != null)

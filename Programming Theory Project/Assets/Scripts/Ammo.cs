@@ -22,9 +22,10 @@ public class Ammo : MonoBehaviour
     public const int pointsMinion = 1;
 
 
-    public GameObject hitParticlePrefab; // Reference to the particle effect prefab
-    public GameObject missParticlePrefab; // Reference to the particle effect prefab
-
+   [SerializeField] private ParticleSystem hitParticlePrefab; // Reference to the particle effect prefab
+    private ParticleSystem hitParticleInstance; // Reference to the particle effect prefab
+    [SerializeField] private ParticleSystem missParticlePrefab; // Reference to the particle effect prefab
+    private ParticleSystem missParticleInstance; // Reference to the particle effect prefab
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
@@ -66,21 +67,18 @@ public class Ammo : MonoBehaviour
             if (other.CompareTag("Enemy"))
             {
                 // Destroy the gameobject
-                gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
                 Destroy(gameObject);
                 Debug.Log("Enemy Hit!");
-                Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
+                hitParticleInstance = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
+                gameManager.AwardPoints(pointsMinion);
             }
 
             else
             {
-                //Destroy(gameObject);
-                // Debug.Log("miss");
-                
                 Destroy(gameObject);
                 Debug.Log("Miss");
-                Instantiate(missParticlePrefab, transform.position, Quaternion.identity);
+                missParticleInstance = Instantiate(missParticlePrefab, transform.position, Quaternion.identity);
             }
         }
 

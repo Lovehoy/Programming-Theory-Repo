@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -38,9 +39,13 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private Animator animator = null;
 
-    public GameObject shootParticlePrefab; // Reference to the particle effect prefab
-    public GameObject lowParticlePrefab; // Reference to the particle effect prefab
-    public GameObject oneShotParticlePrefab; // Reference to the particle effect prefab
+   // public ParticleSystem shootParticlePrefab; // Reference to the particle effect prefab
+   /// public ParticleSystem shootParticleInstance; 
+   // public ParticleSystem lowParticlePrefab; // Reference to the particle effect prefa
+   // public ParticleSystem lowParticleInstance; // Reference to the particle effect prefab
+  //  public ParticleSystem oneShotParticlePrefab; // Reference to the particle effect prefab
+  //  public ParticleSystem oneShotParticleInstance; // Reference to the particle effect prefab
+
     private List<GameObject> activeParticles = new List<GameObject>(); // Store references to active particle systems
 
 
@@ -76,13 +81,13 @@ public class PlayerController : MonoBehaviour
                 Shoot();
                 // Change color if shooting
                 //Instantiate(shootParticlePrefab, transform.position, Quaternion.identity); //GetComponent<Renderer>().material.color = PUpColor;
-                GameObject shootParticle = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
-                activeParticles.Add(shootParticle);
+               //  shootParticle = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
+               // activeParticles.Add(shootParticle);
 
                 if (projectilesFired <= lowProjectiles)
                 {
-                    GameObject lowParticle = Instantiate(lowParticlePrefab, transform.position, Quaternion.identity);
-                    activeParticles.Add(lowParticle);
+                    //GameObject lowParticle = Instantiate(lowParticlePrefab, transform.position, Quaternion.identity);
+                   // activeParticles.Add(lowParticle);
                     //Instantiate(lowParticlePrefab, transform.position, Quaternion.identity); // ; GetComponent<Renderer>().material.color = LowAmmoColor;
                 }
             }
@@ -100,9 +105,9 @@ public class PlayerController : MonoBehaviour
         //if space, then force pulse all other Rb away
         if (oneShotAwarded)
         {
-            DeactivateActiveParticles();
+            //DeactivateActiveParticles();
 
-            Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity);
+           /// Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity);
             ShootOneShot();
 
             //Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity); // GetComponent<Renderer>().material.color = OneShotColor;
@@ -262,8 +267,10 @@ public void ShootOneShot()
     }
     private bool CanShoot()
     {
+        //SpawnShootPaticles();
         // Check if the number of projectiles fired is less than the maximum allowed
         return projectilesFired < maxProjectiles;
+
     }
     private void EnableShooting()
     {
@@ -304,5 +311,10 @@ public void ShootOneShot()
         }
         activeParticles.Clear(); // Clear the list
     }
-
+    // ************** PARTICLES *****************
+   // private void SpawnShootPaticles()
+   // {
+    //    shootParticleInstance = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
+    //}
+    
 }
