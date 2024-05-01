@@ -10,7 +10,7 @@ public class Barrel : MonoBehaviour
 {
     public UnityEvent<Vector3> OnBreak;
    
-    private float minFallDistance = .005f; // Minimum fall distance to consider as a fall
+    private float minFallDistance = .00001f; // Minimum fall distance to consider as a fall, must be very low to account for prefab scaling
     public LayerMask groundLayer; // Layer mask to specify which layer to consider as ground
 
     private Vector3 startPosition; // Initial position of the object
@@ -33,7 +33,7 @@ public class Barrel : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is grounded
-        float groundDistance = .154f;
+        float groundDistance = .3f;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
 
         // If the object is not grounded and not already falling
@@ -48,11 +48,11 @@ public class Barrel : MonoBehaviour
         // If the object is grounded and was falling
         if (isGrounded && isFalling)
         {
-            Break();
+            FindFallDistance();
         }
     }
 
-    public void Break()
+    public void FindFallDistance()
     {
         // Calculate the fall distance
         float fallDistance = startPosition.y - transform.position.y;
@@ -60,27 +60,23 @@ public class Barrel : MonoBehaviour
         // If the fall distance is greater than the minimum fall distance
         if (fallDistance > minFallDistance) //(rb.velocity.y < 1 && fallDistance > minFallDistance)
         {
-            Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
-          // GetComponent<Renderer>().material.color = breakColor;
+           // Debug.Log(gameObject.name + " fell " + fallDistance + " units.");
+            // GetComponent<Renderer>().material.color = breakColor;
 
-            rb.isKinematic = true;
-            isFalling = false;
-
-            isBroken = true;
-
-            OnBreak.Invoke(transform.position);
-
-            if (isBroken)
-            {
-                BarrelSpawnManager barrelSpawnManager = FindObjectOfType<BarrelSpawnManager>();
-                if (barrelSpawnManager != null)
+            Break();
+        }
+    }
+    public void Break()
+    {
+        Debug.Log("barrel Broken");
+        rb.isKinematic = true;
+        isFalling = false;
+        BarrelSpawnManager barrelSpawnManager = FindObjectOfType<BarrelSpawnManager>();
+          if (barrelSpawnManager != null)
                 {
                     barrelSpawnManager.SpawnPowerup(transform.position);
                 }
-            }
-
-            Destroy(gameObject);
-        }
-    }
+        Destroy(gameObject);
+     }
    
 }

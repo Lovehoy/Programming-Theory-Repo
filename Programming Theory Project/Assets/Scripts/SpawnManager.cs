@@ -7,30 +7,18 @@ using UnityEngine.UIElements;
 
 public class SpawnManager : MonoBehaviour
 {
-  //  public GameObject barrelPrefab;
     public GameObject minionPrefab;
-  //  public GameObject powerupPrefab;
 
     public int minionCount;
 
     public int waveNumber = 1;
-
-   // private float startBarrelDelay = 1;
-  //  private float repeatBarrelRate = 5;
-
-   // private Barrel barrelController;
-
-  //  public Vector3 barrelspawnPos = new Vector3(-2, 10, 0);
 
     // Flag to indicate if the player prefab is instantiated
     private bool playerInstantiated = false;
 
     //public event Action BarrelSpawned; // Define an event
 
-
     private List<Transform> activeMinions = new List<Transform>();
-    //private int minion;
-
 
     // Start is called before the first frame update
     void Start()
@@ -48,17 +36,6 @@ public class SpawnManager : MonoBehaviour
         Debug.Log("Start SpawnMinionWave");
         SpawnMinionWave(waveNumber);
 
-      //  InvokeRepeating("SpawnBarrel", startBarrelDelay, repeatBarrelRate);
-        // Subscribe to the OnBreak event of all barrels in the scene
-       // barrelController = barrelController.GetComponent<Barrel>();
-       // Barrel[] barrels = FindObjectsOfType<Barrel>();
-       // foreach (Barrel barrel in barrels)
-      //  {
-         //   {
-            //    barrel.OnBreak.AddListener(SpawnPowerup);
-      //     // }
-       // }
-
         // Set playerInstantiated flag to true
         playerInstantiated = true;
     }
@@ -66,22 +43,22 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Check if the player prefab is instantiated before updating minion count and spawning minions
-        if (playerInstantiated)
-        {
-            minionCount = activeMinions.Count;
+      
+    // Check if the player prefab is instantiated before updating minion count and spawning minions
+    if (playerInstantiated)
+    {
+        minionCount = FindObjectsOfType<EnemyMinion>().Length;
 
-            // When to spawn another wave of minions
-            if (minionCount <= 1)
-            {
-                // Increment wave number
-                waveNumber++;
-                // Spawn the next wave of minions
-                SpawnMinionWave(waveNumber);
-            }
+        // When to spawn another wave of minions
+        if (minionCount <= 1)
+        {
+            // Spawn the next wave of minions
+            SpawnMinionWave(waveNumber);
         }
     }
+    }
 
+    // ***************** Minions not respawning *********************************
     void SpawnMinionWave(int minionsToSpawn)
     {
         Debug.Log("Spawning " + minionsToSpawn + " minions.");
@@ -115,15 +92,4 @@ public class SpawnManager : MonoBehaviour
         return new Vector3(spawnPosX, spawnPosY, spawnPosZ);
     }
 
-   // void SpawnBarrel()
-  //  {
-        // If game over is false and player prefab is instantiated, spawn barrels
-    //    if (playerInstantiated)
-     //   {
-      //      Instantiate(barrelPrefab, barrelspawnPos, barrelPrefab.transform.rotation);
-        //    BarrelSpawned?.Invoke(); // Trigger the event
-      //  }
-    //}
-
-   
 }

@@ -18,6 +18,7 @@ public class Ammo : MonoBehaviour
     private Vector3 moveDirection;
 
     GameManager gameManager;
+    //Barrel barrel;
 
     public const int pointsMinion = 1;
 
@@ -68,23 +69,42 @@ public class Ammo : MonoBehaviour
             {
                 // Destroy the gameobject
                 Destroy(other.gameObject);
-                Destroy(gameObject);
                 Debug.Log("Enemy Hit!");
                 hitParticleInstance = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
                 gameManager.AwardPoints(pointsMinion);
             }
 
+           if (other.CompareTag("Barrel"))
+            {
+                Barrel barrel = other.GetComponent<Barrel>();
+                if (barrel != null)
+                {
+                    barrel.Break();
+                }
+                missParticleInstance = Instantiate(missParticlePrefab, transform.position, Quaternion.identity);
+            }
+            if (other.CompareTag("PowerUp"))
+            {
+                PlayerController playerController = other.GetComponent<PlayerController>();
+                if (playerController != null)
+                {
+                    playerController.EnableShooting();
+                }
+                hitParticleInstance = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+            }
+
             else
             {
-                Destroy(gameObject);
                 Debug.Log("Miss");
                 missParticleInstance = Instantiate(missParticlePrefab, transform.position, Quaternion.identity);
             }
+            Destroy(gameObject);
         }
 
     }
 
-    void DestroyOutOfBounds ()
+    void DestroyOutOfBounds()
     {
         float rightBound = 14;
         float fwBound = 7f;

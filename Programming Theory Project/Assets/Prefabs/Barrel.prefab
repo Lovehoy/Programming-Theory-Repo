@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6870935213188352927}
   - component: {fileID: 2130139032901759356}
   - component: {fileID: 1630943043733076790}
-  - component: {fileID: 4703877704959002844}
   - component: {fileID: 3630106061242164299}
   - component: {fileID: 52978420637909562}
+  - component: {fileID: 6612443500291826315}
   m_Layer: 0
   m_Name: Barrel
   m_TagString: Barrel
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.08, y: 7.123048, z: 0}
-  m_LocalScale: {x: 0.43, y: 0.43, z: 0.43}
+  m_LocalScale: {x: 0.58, y: 0.58, z: 0.58}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5772106233336976547}
@@ -87,27 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4703877704959002844
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6430728597414019414}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.57
-  m_Center: {x: 0, y: 0.013468725, z: 0}
 --- !u!54 &3630106061242164299
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,6 +145,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   isBroken: 0
+--- !u!136 &6612443500291826315
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6430728597414019414}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.61
+  m_Height: 1.5699036
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -0.08}
 --- !u!1001 &3643385423078905064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7103658430466490436, guid: 70c63ad38d5a4534582d1c8d00dcb519, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7103658430466490436, guid: 70c63ad38d5a4534582d1c8d00dcb519, type: 3}
       propertyPath: m_IsActive
@@ -192,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7103658430466490443, guid: 70c63ad38d5a4534582d1c8d00dcb519, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.14
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: 7103658430466490443, guid: 70c63ad38d5a4534582d1c8d00dcb519, type: 3}
       propertyPath: m_LocalScale.z

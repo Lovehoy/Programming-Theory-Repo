@@ -8,10 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
     public float jumpForce = 10f;
- //   float spawnOffsetDistance = 1f;
+    //   float spawnOffsetDistance = 1f;
 
     public bool isGrounded;
-   public bool gameOver = false;
+    public bool gameOver = false;
     public bool canShoot = false; // Variable to track if player can shoot
     private bool spacePressed = false;
     public bool oneShotAwarded = false;
@@ -36,23 +36,14 @@ public class PlayerController : MonoBehaviour
                                       //   public int minPoints = 0;
                                       //  public int currentPoints;
     public GameManager GameManager;
-    
-    [SerializeField] private Animator animator = null;
 
-   // public ParticleSystem shootParticlePrefab; // Reference to the particle effect prefab
-   /// public ParticleSystem shootParticleInstance; 
-   // public ParticleSystem lowParticlePrefab; // Reference to the particle effect prefa
-   // public ParticleSystem lowParticleInstance; // Reference to the particle effect prefab
-  //  public ParticleSystem oneShotParticlePrefab; // Reference to the particle effect prefab
-  //  public ParticleSystem oneShotParticleInstance; // Reference to the particle effect prefab
+    [SerializeField] private Animator animator = null;
 
     private List<GameObject> activeParticles = new List<GameObject>(); // Store references to active particle systems
 
+    public GameObject shootParticlePrefab; // Reference to the shoot particle effect prefab
 
-
-    //private bool isShooting = false;
-
-    //public GameObject projectilePrefab;
+    private GameObject shootParticleInstance; // Instance of the shoot particle effect
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -65,12 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!gameOver)
         {
-         //   if (Input.GetKey(KeyCode.RightAlt))
-            //{
-            //    ShootOneShot();
-           // }
-
-           if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyUp(KeyCode.Space))
             {
                 spacePressed = false;
             }
@@ -79,41 +65,34 @@ public class PlayerController : MonoBehaviour
             {
                 // Call your shooting method
                 Shoot();
-                // Change color if shooting
-                //Instantiate(shootParticlePrefab, transform.position, Quaternion.identity); //GetComponent<Renderer>().material.color = PUpColor;
-               //  shootParticle = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
-               // activeParticles.Add(shootParticle);
-
-                if (projectilesFired <= lowProjectiles)
-                {
-                    //GameObject lowParticle = Instantiate(lowParticlePrefab, transform.position, Quaternion.identity);
-                   // activeParticles.Add(lowParticle);
-                    //Instantiate(lowParticlePrefab, transform.position, Quaternion.identity); // ; GetComponent<Renderer>().material.color = LowAmmoColor;
-                }
+                PlayCanShootVFX();
+               
             }
-            
+
             else
             {
-                // Revert to original color
-                // ************ Stpp partical effect ************ // GetComponent<Renderer>().material.color = originalColor;
+                // Destroy shoot particle effect if it's currently instantiated
+                if (shootParticleInstance != null)
+                {
+                    Destroy(shootParticleInstance);
+                }
 
                 // Disable shooting ability if out of ammo
                 DeactivateActiveParticles();
                 canShoot = false;
+
             }
+            if (oneShotAwarded)
+            {
+                ShootOneShot();
+            }
+            //   if (Input.GetKey(KeyCode.RightAlt))
+            //{
+            //    ShootOneShot();
+            // }
         }
-        //if space, then force pulse all other Rb away
-        if (oneShotAwarded)
-        {
-            //DeactivateActiveParticles();
 
-           /// Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity);
-            ShootOneShot();
 
-            //Instantiate(oneShotParticlePrefab, transform.position, Quaternion.identity); // GetComponent<Renderer>().material.color = OneShotColor;
-            ShootOneShot();
-        }
-        
     }
     private void FixedUpdate()
     {
@@ -129,7 +108,7 @@ public class PlayerController : MonoBehaviour
 
         //get inputs
         direction.x = Input.GetAxis("Horizontal") * speed;
-      direction.y = Input.GetAxis("Vertical") * speed;
+        direction.y = Input.GetAxis("Vertical") * speed;
 
 
         // Rotate the player character to face the direction it's moving on the x-axis
@@ -146,15 +125,15 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             // Apply the rotation directly to the player's transform
-           // transform.rotation = targetRotation;
+            // transform.rotation = targetRotation;
 
             // Create a rotation quaternion based on the target angle around the y-axis
             // Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             // Apply the rotation to the player's transform
-             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
-       
+
 
         // Handle jumping
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
@@ -164,19 +143,19 @@ public class PlayerController : MonoBehaviour
         }
         if (isGrounded)
         {
-           rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + direction * Time.fixedDeltaTime);
 
         }
 
         moveDirection = new Vector3(direction.x, 0, direction.y);
 
-     
-      if (moveDirection == Vector3.right)
+
+        if (moveDirection == Vector3.right)
         {
             animator.SetBool("Right", true);
         }
 
-          else if (moveDirection == Vector3.left)
+        else if (moveDirection == Vector3.left)
         {
             animator.SetBool("Left", true);
         }
@@ -211,80 +190,61 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
     }
     // ************** SHOOTING *****************
- 
-        private void Shoot()
-   {
-            if (Input.GetKey(KeyCode.Space) && !spacePressed)
+
+    private void Shoot()
+    {
+        if (Input.GetKey(KeyCode.Space) && !spacePressed)
         {
 
             animator.SetTrigger("Shoot");
             spacePressed = true;
-                // Get an object object from the pool
-                GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
-                if (pooledProjectile != null)
-                {
-                    pooledProjectile.SetActive(true); // activate it
-              //  Vector3 spawnPosition = transform.position + transform.forward; * spawnOffsetDistance;
-                  //  pooledProjectile.transform.position = spawnPosition;
-                    //Optionally, also set the rotation to match the player's rotation
-                    //pooledProjectile.transform.rotation = transform.rotation;
-                    // Increment projectiles fired
-                    projectilesFired++;
+            // Get an object object from the pool
+            GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
+            if (pooledProjectile != null)
+            {
+                pooledProjectile.SetActive(true);
+                projectilesFired++;
                 //isShooting = false;
             }
-          // else
-          // {
-          //     animator.ResetTrigger("Shoot");
-          // }
+            // else
+            // {
+            //     animator.ResetTrigger("Shoot");
+            // }
 
         }
 
     }
 
-    // This function is called by the Animation Event in the shoot animation clip
-   // public void ResetShootParameter()
-    //{
-     //   spacePressed = false;
-    //}
-
-
-public void ShootOneShot()
+    public void ShootOneShot()
     {
-       oneShotAwarded = true;
-        //****** START HERE run function on bool (preferably from GameManager "oneShotAwarded")
+        oneShotAwarded = true;
         if (Input.GetKey(KeyCode.RightAlt))
         {
             animator.SetTrigger("Shoot");
             Debug.Log("ShootOneShot() pressed");
-            // Calculate the spawn position
-         //   Vector3 spawnPosition = transform.position + transform.forward * spawnOffsetDistance;
-            // Instantiate the oneShotPrefab at the calculated spawn position
-           // Instantiate(oneShotPrefab, spawnPosition, oneShotPrefab.transform.rotation);
-          // ************ Play partical effect ************ // GetComponent<Renderer>().material.color = originalColor;
+
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;
         }
     }
     private bool CanShoot()
     {
-        //SpawnShootPaticles();
         // Check if the number of projectiles fired is less than the maximum allowed
         return projectilesFired < maxProjectiles;
-
     }
-    private void EnableShooting()
+    public void EnableShooting()
     {
         // Enable shooting ability
+        Debug.Log("Can shoot");
         canShoot = true;
+        projectilesFired = 0;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PowerUp"))
         {
             // canShoot = true; // Enable shooting ability
-            projectilesFired = 0; // Reset projectiles fired
             Destroy(other.gameObject);
-            Debug.Log("POWER UP!");
             EnableShooting();// Call function to enable shooting ability
 
         }
@@ -312,9 +272,16 @@ public void ShootOneShot()
         activeParticles.Clear(); // Clear the list
     }
     // ************** PARTICLES *****************
-   // private void SpawnShootPaticles()
-   // {
-    //    shootParticleInstance = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
-    //}
-    
+    void PlayCanShootVFX()
+    {
+        if (shootParticleInstance == null)
+        {
+            shootParticleInstance = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
+        }
+       
+        if (projectilesFired <= lowProjectiles)
+        {
+            //////////////////////////////////
+        }
+    }
 }

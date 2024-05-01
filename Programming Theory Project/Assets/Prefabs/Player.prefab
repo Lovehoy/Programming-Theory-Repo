@@ -189,6 +189,7 @@ MonoBehaviour:
   OneShotColor: {r: 0, g: 0.85568786, b: 1, a: 0}
   GameManager: {fileID: 0}
   animator: {fileID: 0}
+  shootParticlePrefab: {fileID: 4314733208801324352}
 --- !u!95 &5373973961225743983
 Animator:
   serializedVersion: 5
@@ -1431,15 +1432,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
+      value: 0.745283
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.5156592
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398839, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: m_Materials.Array.size
@@ -1533,7 +1534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: ShapeModule.type
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: ColorModule.enabled
@@ -1548,16 +1549,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+      propertyPath: ShapeModule.m_Rotation.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 0.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: ShapeModule.radiusThickness
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 14.03
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startSizeY.scalar
-      value: 14.97
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startSizeZ.scalar
@@ -1569,18 +1578,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15.7
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 1
+      value: 0.2028302
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 1
+      value: 0.2028302
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
+    - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1449064860000398838, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
@@ -1624,6 +1641,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+--- !u!1 &4314733208801324352 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1449064860000398824, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
+  m_PrefabInstance: {fileID: 3457953272881217704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4314733208801324381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1449064860000398837, guid: de89c977f177310489b6d6cb12a9a3f6, type: 3}
