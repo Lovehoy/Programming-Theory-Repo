@@ -61,7 +61,7 @@ public class SpawnManager : MonoBehaviour
     // ***************** Minions not respawning *********************************
     void SpawnMinionWave(int minionsToSpawn)
     {
-        Debug.Log("Spawning " + minionsToSpawn + " minions.");
+        //Debug.Log("Spawning " + minionsToSpawn + " minions.");
 
         for (int i = 0; i < minionsToSpawn; i++)
         {

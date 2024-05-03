@@ -19,7 +19,7 @@ public class OneShotBar : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         if (gameManager == null)
         {
-            Debug.LogError("GameManager not found in the scene!");
+           // Debug.LogError("GameManager not found in the scene!");
             return;
         }
 

@@ -65,24 +65,10 @@ public class PlayerController : MonoBehaviour
             {
                 // Call your shooting method
                 Shoot();
-                PlayCanShootVFX();
+               // PlayCanShootVFX();
                
             }
-
-            else
-            {
-                // Destroy shoot particle effect if it's currently instantiated
-                if (shootParticleInstance != null)
-                {
-                    Destroy(shootParticleInstance);
-                }
-
-                // Disable shooting ability if out of ammo
-                DeactivateActiveParticles();
-                canShoot = false;
-
-            }
-            if (oneShotAwarded)
+            else if (oneShotAwarded)
             {
                 ShootOneShot();
             }
@@ -90,6 +76,16 @@ public class PlayerController : MonoBehaviour
             //{
             //    ShootOneShot();
             // }
+            else
+            {
+                // Destroy shoot particle effect if it's currently instantiated
+                if (shootParticlePrefab != null)
+                {
+                    Destroy(shootParticleInstance);
+                }
+                canShoot = false;
+
+            }
         }
 
 
@@ -231,6 +227,7 @@ public class PlayerController : MonoBehaviour
     {
         // Check if the number of projectiles fired is less than the maximum allowed
         return projectilesFired < maxProjectiles;
+        
     }
     public void EnableShooting()
     {
@@ -238,6 +235,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Can shoot");
         canShoot = true;
         projectilesFired = 0;
+        PlayCanShootVFX();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -246,7 +244,6 @@ public class PlayerController : MonoBehaviour
             // canShoot = true; // Enable shooting ability
             Destroy(other.gameObject);
             EnableShooting();// Call function to enable shooting ability
-
         }
     }
     // ************** COLLISION *****************
@@ -263,6 +260,21 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // ************** PARTICLES *****************
+    void PlayCanShootVFX()
+    {
+        if (shootParticleInstance == null)
+        {
+            shootParticleInstance = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
+            Debug.Log("VFX playing");
+            shootParticleInstance.transform.parent = transform;
+        }
+
+        if (projectilesFired <= lowProjectiles)
+        {
+            //////////////////////////////////
+        }
+    }
     private void DeactivateActiveParticles()
     {
         foreach (GameObject particle in activeParticles)
@@ -270,18 +282,5 @@ public class PlayerController : MonoBehaviour
             particle.SetActive(false);
         }
         activeParticles.Clear(); // Clear the list
-    }
-    // ************** PARTICLES *****************
-    void PlayCanShootVFX()
-    {
-        if (shootParticleInstance == null)
-        {
-            shootParticleInstance = Instantiate(shootParticlePrefab, transform.position, Quaternion.identity);
-        }
-       
-        if (projectilesFired <= lowProjectiles)
-        {
-            //////////////////////////////////
-        }
     }
 }
