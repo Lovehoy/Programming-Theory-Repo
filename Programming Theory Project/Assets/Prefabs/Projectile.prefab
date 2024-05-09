@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2237102718271377625}
   - component: {fileID: 4918515745736225374}
   - component: {fileID: 2622697697810970438}
+  - component: {fileID: 5313813100610159058}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Ammo
@@ -121,3 +122,26 @@ MonoBehaviour:
   player: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}
   hitParticlePrefab: {fileID: 1343103242768796685, guid: 8c94e37798791e84db50ddb63dfc52b1, type: 3}
   missParticlePrefab: {fileID: 2290002356216508269, guid: b9ef977dc7ecbab43884b781394e5bb8, type: 3}
+--- !u!136 &5313813100610159058
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286277397286711905}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.7
+  m_Height: 5.65
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.23, z: 0}

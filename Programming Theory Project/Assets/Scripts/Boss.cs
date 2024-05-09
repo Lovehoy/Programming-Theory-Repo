@@ -31,4 +31,5 @@ public class Boss : MonoBehaviour
     {
         animator.SetTrigger("Throw"); // Play the "Throw" animation
     }
+
 }

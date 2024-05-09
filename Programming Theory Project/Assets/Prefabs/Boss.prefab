@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 801735766198803999}
   - component: {fileID: 1803320381585248452}
+  - component: {fileID: 4588561606626536997}
   m_Layer: 0
   m_Name: Polyart_Golem
   m_TagString: Untagged
@@ -55,6 +56,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4588561606626536997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57603240012316279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d67b1f0ad0a2246b1e9a2c07cf6b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1803320381585248452}
 --- !u!1 &271167738776204504
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +208,7 @@ GameObject:
   - component: {fileID: 1890332496295275382}
   - component: {fileID: 5277099582659435882}
   - component: {fileID: 3477768773723151395}
+  - component: {fileID: -6297198987850999530}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -282,12 +297,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.134493, y: 3.0013504, z: 1}
-  m_Center: {x: 0.16652095, y: 1.2464485, z: 0}
+  m_Size: {x: 3.134493, y: 3.0013504, z: 3.4357536}
+  m_Center: {x: 0.16652098, y: 1.2464485, z: -0.23512095}
+--- !u!114 &-6297198987850999530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175757097345803727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d67b1f0ad0a2246b1e9a2c07cf6b89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1 &2359187641942697818
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +854,7 @@ Transform:
   m_GameObject: {fileID: 9021642138278017340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.91, y: 0, z: 0.7}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []

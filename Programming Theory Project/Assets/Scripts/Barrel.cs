@@ -33,7 +33,7 @@ public class Barrel : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is grounded
-        float groundDistance = .3f;
+        float groundDistance = .28f;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
 
         // If the object is not grounded and not already falling
@@ -78,5 +78,14 @@ public class Barrel : MonoBehaviour
                 }
         Destroy(gameObject);
      }
-   
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(collision.gameObject);
+            Break();
+        }
+    }
+
 }

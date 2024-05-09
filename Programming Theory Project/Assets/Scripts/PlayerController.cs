@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public bool gameOver = false;
     public bool canShoot = false; // Variable to track if player can shoot
-    private bool spacePressed = false;
+    private bool shootPressed = false;
     public bool oneShotAwarded = false;
 
     private Vector3 direction;
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public Color LowAmmoColor;
     public Color OneShotColor;
 
-    private int maxProjectiles = 5; // Maximum number of projectiles allowed per power-up
+    private int maxProjectiles = 10; // Maximum number of projectiles allowed per power-up
     private int lowProjectiles = 3; // Number of projectiles fired to trigger getting low
     private int projectilesFired = 0; // Number of projectiles fired
                                       // public int maxPoints = 10;
@@ -56,9 +56,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!gameOver)
         {
-            if (Input.GetKeyUp(KeyCode.Space))
+           if (Input.GetKeyUp(KeyCode.Space))
             {
-                spacePressed = false;
+                shootPressed = false;
             }
             // Check if the player can shoot based on available ammo
             if (canShoot && CanShoot())
@@ -68,14 +68,7 @@ public class PlayerController : MonoBehaviour
                // PlayCanShootVFX();
                
             }
-            else if (oneShotAwarded)
-            {
-                ShootOneShot();
-            }
-            //   if (Input.GetKey(KeyCode.RightAlt))
-            //{
-            //    ShootOneShot();
-            // }
+          
             else
             {
                 // Destroy shoot particle effect if it's currently instantiated
@@ -85,6 +78,11 @@ public class PlayerController : MonoBehaviour
                 }
                 canShoot = false;
 
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightAlt))
+            {
+                ShootOneShot();
             }
         }
 
@@ -107,24 +105,17 @@ public class PlayerController : MonoBehaviour
         direction.y = Input.GetAxis("Vertical") * speed;
 
 
-        // Rotate the player character to face the direction it's moving on the x-axis
-        // 180 rule film bros
-        //may need to be changed back. we need a character to see
+       
         if (Mathf.Abs(horizontalInput) > 0.1f) // Check if there's significant horizontal input
         {
+            //float lta
             // Calculate the angle in radians between the current forward direction and the movement direction
-            float targetAngle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+            float targetAngle = direction.x > 0 ? 90 : 270;
 
             // Ensure the target angle is always a full 180 degrees
             targetAngle += 180f;
             // Create a rotation quaternion based on the target angle around the y-axis
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-            // Apply the rotation directly to the player's transform
-            // transform.rotation = targetRotation;
-
-            // Create a rotation quaternion based on the target angle around the y-axis
-            // Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             // Apply the rotation to the player's transform
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
@@ -187,13 +178,14 @@ public class PlayerController : MonoBehaviour
     }
     // ************** SHOOTING *****************
 
-    private void Shoot()
+    private void Shoot() 
     {
-        if (Input.GetKey(KeyCode.Space) && !spacePressed)
+        if (Input.GetKey(KeyCode.Space) && !shootPressed)
         {
+            Debug.Log("Shoot");
 
             animator.SetTrigger("Shoot");
-            spacePressed = true;
+            shootPressed = true;
             // Get an object object from the pool
             GameObject pooledProjectile = ObjectPooler.SharedInstance.GetPooledObject();
             if (pooledProjectile != null)
@@ -209,19 +201,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-    }
-
-    public void ShootOneShot()
-    {
-        oneShotAwarded = true;
-        if (Input.GetKey(KeyCode.RightAlt))
-        {
-            animator.SetTrigger("Shoot");
-            Debug.Log("ShootOneShot() pressed");
-
-            Debug.Log("ONE SHOT SHOT");
-            oneShotAwarded = false;
-        }
     }
     private bool CanShoot()
     {
@@ -246,16 +225,53 @@ public class PlayerController : MonoBehaviour
             EnableShooting();// Call function to enable shooting ability
         }
     }
+// ************** ONE SHOT *****************
+public void ShootOneShot()
+{
+        Debug.Log("F pressed");
+        if (oneShotAwarded)
+           {
+        Instantiate(oneShotPrefab);
+            //animator.SetTrigger("Shoot");
+            Debug.Log("ONE SHOT SHOT");
+            oneShotAwarded = false;
+            GameManager.ResetPoints();
+       }
+}
+    public bool HasAward()
+    {
+        Debug.Log("playerController receieved oneShotRewarded");
+        //ShootOneShot();
+        return oneShotAwarded = true;
+       
+    }
     // ************** COLLISION *****************
     private void OnCollisionEnter(Collision collision)
     {
         // if Player collides with Enemy, then "Game Over!"
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            
             gameOver = true;
             animator.SetBool("Die", true);
             Debug.Log("Game Over!");
+
             rb.mass = 0f;
+            float deathFloatForce = 1f;
+            rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
+            GameManager.GameOver();
+        }
+       
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+
+            gameOver = true;
+            animator.SetBool("Die", true);
+            Debug.Log("Boss Killed Player");
+
+            rb.mass = 0f;
+            float deathFloatForce = 1f;
+            rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
             GameManager.GameOver();
         }
     }

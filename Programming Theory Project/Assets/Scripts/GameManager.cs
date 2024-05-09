@@ -14,8 +14,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public int maxPoints = 10;
-    public int minPoints = 0;
+    private int maxPoints = 5;
+    private int minPoints = 0;
     public int currentPoints;
 
     public Text ScoreText;
@@ -41,9 +41,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);  // prevents this from being destroyed on scene load
         }
         // Instantiate player
-        playerInstance = Instantiate(playerPrefab, transform.position, Quaternion.identity);
+        playerInstance = Instantiate(playerPrefab, transform.position, transform.rotation);
 
-        
     }
 
     void Start()
@@ -95,7 +94,7 @@ public class GameManager : MonoBehaviour
     public void AwardPoints( int point)
     { 
         if (currentPoints  < maxPoints)
-        {
+        { 
             currentPoints += point;
             oneShotBar.SetPoints(currentPoints);
             // You can add more logic here if needed, such as updating UI to display the new total points
@@ -104,12 +103,19 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void AwardOneShot( int point) 
+    public void AwardOneShot( int maxPoints) 
     { 
         // make bar flash?? oneShotBar.SetPoints(currentPoints);
         // You can add more logic here if needed, such as updating UI to display the new total points
-        playerController.ShootOneShot(); 
+        playerController.HasAward(); 
         Debug.Log("Game Controller Awarded One Shot");
         oneShotAwarded = true;
+    }
+
+    public void ResetPoints()
+    {
+        oneShotBar.SetPoints(0);
+        currentPoints = minPoints;
+        oneShotAwarded = false;
     }
 }

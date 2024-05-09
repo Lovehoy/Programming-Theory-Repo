@@ -17,7 +17,7 @@ public class Ammo : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 moveDirection;
 
-    GameManager gameManager;
+   public GameManager gameManager;
     //Barrel barrel;
 
     public const int pointsMinion = 1;
@@ -73,8 +73,8 @@ public class Ammo : MonoBehaviour
                 hitParticleInstance = Instantiate(hitParticlePrefab, transform.position, Quaternion.identity);
                 gameManager.AwardPoints(pointsMinion);
             }
-
-           if (other.CompareTag("Barrel"))
+            
+            if (other.CompareTag("Barrel"))
             {
                 Barrel barrel = other.GetComponent<Barrel>();
                 if (barrel != null)

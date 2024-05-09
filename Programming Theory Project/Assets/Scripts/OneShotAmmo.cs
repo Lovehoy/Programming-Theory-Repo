@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class OneShotAmmo : Ammo
 {
-   
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -25,8 +27,6 @@ public class OneShotAmmo : Ammo
 
             if (other.CompareTag("Boss"))
             {
-                // Destroy the gameobject
-                //gameManager.AwardPoints(pointsMinion);
                 Destroy(other.gameObject);
                 Debug.Log("You Win! Boss Defeated!");
             }
