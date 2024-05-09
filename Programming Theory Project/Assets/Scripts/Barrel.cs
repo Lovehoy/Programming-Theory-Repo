@@ -19,7 +19,12 @@ public class Barrel : MonoBehaviour
     public bool isBroken = false;
     private bool isGrounded = false; // Flag to track if the object is grounded
 
+    private bool isburning = false;
+
     private Rigidbody rb; // Rigidbody component of the object
+
+    public GameObject burnParticlePrefab; 
+    private GameObject burnParticleInstance; 
 
     void Start()
     {
@@ -28,9 +33,11 @@ public class Barrel : MonoBehaviour
 
         // Record the initial position of the object
         startPosition = transform.position;
+
+       // GameManager.Instance.OnOneShotAwardedChanged.AddListener(OnOneShotAwardedChanged);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         // Check if the object is grounded
         float groundDistance = .333f;
@@ -46,10 +53,25 @@ public class Barrel : MonoBehaviour
         }
 
         // If the object is grounded and was falling
-        if (isGrounded && isFalling)
+        else if (isGrounded && isFalling)
         {
             FindFallDistance();
         }
+
+       // if (isburning)
+      // {
+       //    Burn();
+       //    Debug.Log("Update passed to Burn()");
+     // }
+     // else if (!isburning && burnParticleInstance != null)
+     //  {
+            // Destroy shoot particle effect if it's currently instantiated
+        //if (burnParticlePrefab != null)
+        //   {
+         //      Destroy(burnParticleInstance);
+         //   }
+        //    isburning = false;
+      // }
     }
 
     public void FindFallDistance()
@@ -82,13 +104,50 @@ public class Barrel : MonoBehaviour
         Destroy(gameObject);
      }
 
+   // public void Burn()
+    //{
+    //    Debug.Log("Burn()");
+    //    isburning = true;
+    //    if (burnParticleInstance == null)
+     //   {
+      //      burnParticleInstance = Instantiate(burnParticlePrefab, transform.position, Quaternion.identity);
+      //      Debug.Log("burn playing");
+      //      burnParticleInstance.transform.parent = transform;
+      //  }
+   // }
+
+   // public bool StopBurning()
+  //  {
+      //  Debug.Log("stopburing()");
+      //  return !isburning;
+ //  }
+    //private void OnOneShotAwardedChanged(bool isOneShotAwarded)
+    //{
+        // Perform actions based on the value of isOneShotAwarded
+    //    if (isOneShotAwarded)
+    //    {
+   //         Burn();
+     //       Debug.Log("Barrel got Oneshot");
+    //    }
+    //    else
+    //    {
+    //        StopBurning();
+     //       Debug.Log("Barrel got !Oneshot");
+   ///  }
+   //}
+    //private void OnDestroy()
+    //{
+      //  GameManager.Instance.OnOneShotAwardedChanged.RemoveListener(OnOneShotAwardedChanged);
+  //  }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && !isburning)
         {
             Destroy(collision.gameObject);
             Break();
         }
     }
+   
 
 }

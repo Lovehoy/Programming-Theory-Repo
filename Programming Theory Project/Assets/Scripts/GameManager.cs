@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
+    //public UnityEvent<bool> OnOneShotAwardedChanged = new UnityEvent<bool>();
     private static bool s_permanentInstance = false; // set to true if you ever only want one instance among all scenes and drop an instance of GameManager in your first scene you load
     public bool oneShotAwarded = false;
     public bool gameOver = false;
@@ -29,8 +30,9 @@ public class GameManager : MonoBehaviour
     public GameObject nextButton;
 
     // **** One Shot Assets *******
-    public OneShotBar oneShotBar;
-    public PlayerController playerController;
+    private OneShotBar oneShotBar;
+    private PlayerController playerController;
+    private Barrel Barrel;
 
     public GameObject playerPrefab; // Reference to the player prefab
 
@@ -53,10 +55,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-     //oneShotAwarded = false;
- //  currentPoints = minPoints;
-        
-
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -80,6 +78,8 @@ public class GameManager : MonoBehaviour
         }
 
         oneShotBar.SetMinPoints(minPoints);
+
+        Barrel = Barrel.GetComponent<Barrel>();
     }
 
     private void Update()
@@ -108,9 +108,11 @@ public class GameManager : MonoBehaviour
     { 
         // make bar flash?? oneShotBar.SetPoints(currentPoints);
         // You can add more logic here if needed, such as updating UI to display the new total points
-        playerController.HasAward(); 
+        playerController.HasAward();
+      //  Barrel.Burn();
         Debug.Log("Game Controller Awarded One Shot");
         oneShotAwarded = true;
+       // OnOneShotAwardedChanged.Invoke(oneShotAwarded);
     }
 
     public void ResetPoints()
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour
         oneShotBar.SetPoints(0);
         currentPoints = minPoints;
         oneShotAwarded = false;
+      //  Barrel.StopBurning();
+      //  OnOneShotAwardedChanged.Invoke(oneShotAwarded);
     }
     // ****************** WIN ****************************
     public void WinLevel()

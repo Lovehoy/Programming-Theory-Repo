@@ -82,8 +82,9 @@ public class MainManager : MonoBehaviour
 
     public void RestartScene()
     {
-        TogglePause();
-        // Get the name of the current scene
+        if (isPaused)
+        { TogglePause(); }
+    // Get the name of the current scene
         string currentSceneName = SceneManager.GetActiveScene().name;
             // Reload the current scene
             SceneManager.LoadScene(currentSceneName);
