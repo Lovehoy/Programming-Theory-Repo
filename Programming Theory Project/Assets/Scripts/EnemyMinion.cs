@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyMinion : MonoBehaviour
 {
-    public float speed = 1f;
+    float speed = 50f;
 
     public GameObject player;
 
@@ -23,10 +23,10 @@ public class EnemyMinion : MonoBehaviour
         if (player != null)
         {
             // look towards player direction
-            Vector3 lookDirection = (player.transform.position - transform.position).normalized;
+            Vector3 lookDirection = (player.transform.position - transform.position); //.normalized;
 
             // AddForce to enemyRb with lookDirection times the enemy's speed
-            rb.AddForce(lookDirection * speed);
+            rb.AddForce(lookDirection * speed * Time.deltaTime);
         }
         else
         {

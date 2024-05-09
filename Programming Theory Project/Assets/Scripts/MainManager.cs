@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 using System.IO;
+using UnityEngine.UI;
 
 
 
@@ -20,6 +21,12 @@ public class MainManager : MonoBehaviour
 {
     public static MainManager Instance;
 
+    // ****** for Pause *******
+    private bool isPaused = false;
+    public GameObject pauseText;
+    public GameObject MainMenuButton;
+    public GameObject RestartButton;
+
     private void Awake()
     {
         //if there are 2 MainManagers in scene, destroy this MainManager
@@ -33,16 +40,51 @@ public class MainManager : MonoBehaviour
         //But if this is the only one, don't destroy it
         Instance = this;
     }
-    
-    public void StartGame()
+    void Update()
     {
-        SceneManager.LoadScene(1);
+        if (Input.GetKeyDown(KeyCode.Escape)) // Change KeyCode.Escape to your desired pause button
+        {
+            TogglePause();
+        }
+    }
+
+    public void TogglePause()
+    {
+
+        // ############## Add a disable to Pause if in Main Menu (scene 0)
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0f : 1f; // Freeze time if paused, resume time if unpaused
+
+        if (pauseText != null)
+        {
+            pauseText.SetActive(isPaused);
+            MainMenuButton.SetActive(isPaused);
+            RestartButton.SetActive(isPaused);
+        }
+
+        // Disable/enable player input
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.enabled = !isPaused;
+        }
+    }
+
+    // **************** LOADING LEVELS ***********************
+    public void NextLevel()
+    {
+        // Get the index of the current active scene
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Load the next scene by incrementing the current scene index
+        SceneManager.LoadScene(currentSceneIndex + 1);
     }
 
     public void RestartScene()
     {
-            // Get the name of the current scene
-            string currentSceneName = SceneManager.GetActiveScene().name;
+        TogglePause();
+        // Get the name of the current scene
+        string currentSceneName = SceneManager.GetActiveScene().name;
             // Reload the current scene
             SceneManager.LoadScene(currentSceneName);
     }

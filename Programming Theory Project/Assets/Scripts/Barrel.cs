@@ -10,7 +10,7 @@ public class Barrel : MonoBehaviour
 {
     public UnityEvent<Vector3> OnBreak;
    
-    private float minFallDistance = .00001f; // Minimum fall distance to consider as a fall, must be very low to account for prefab scaling
+    private float minFallDistance = .000000000001f; // Minimum fall distance to consider as a fall, must be very low to account for prefab scaling
     public LayerMask groundLayer; // Layer mask to specify which layer to consider as ground
 
     private Vector3 startPosition; // Initial position of the object
@@ -33,7 +33,7 @@ public class Barrel : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is grounded
-        float groundDistance = .28f;
+        float groundDistance = .333f;
         isGrounded = Physics.Raycast(transform.position, Vector3.down, groundDistance, groundLayer);
 
         // If the object is not grounded and not already falling
@@ -55,7 +55,10 @@ public class Barrel : MonoBehaviour
     public void FindFallDistance()
     {
         // Calculate the fall distance
-        float fallDistance = startPosition.y - transform.position.y;
+        // float fallDistance = startPosition.y - transform.position.y;
+
+        Vector3 displacement = transform.position - startPosition;
+        float fallDistance = displacement.magnitude;
 
         // If the fall distance is greater than the minimum fall distance
         if (fallDistance > minFallDistance) //(rb.velocity.y < 1 && fallDistance > minFallDistance)

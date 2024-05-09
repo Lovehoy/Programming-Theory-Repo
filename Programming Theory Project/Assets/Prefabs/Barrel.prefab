@@ -97,10 +97,10 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1.5
   m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 3.08, y: 7.123048, z: 0}
+  m_InertiaTensor: {x: -10, y: -10, z: -10}
+  m_InertiaRotation: {x: 0.00880202, y: 0.008649721, z: 0.008649721, w: 0.9998864}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -164,7 +164,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.61
+  m_Radius: 0.68
   m_Height: 1.5699036
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.08}

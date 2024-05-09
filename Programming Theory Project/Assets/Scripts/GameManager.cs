@@ -20,9 +20,15 @@ public class GameManager : MonoBehaviour
 
     public Text ScoreText;
 
+    // **** Game over Assets *******
     public GameObject gameOverText;
-    public GameObject restartButton;
+    public GameObject restartButton; 
+    
+    // **** Level Win Assets *******
+    public GameObject winLevelText;
+    public GameObject nextButton;
 
+    // **** One Shot Assets *******
     public OneShotBar oneShotBar;
     public PlayerController playerController;
 
@@ -84,13 +90,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("Update passsed Award One Shot");
         }
     }
-    public void GameOver()
-    {
-        gameOverText.SetActive(true);
-        restartButton.SetActive(true);
-        gameOver = true;
-    }
-
+   
+  // ****************** ONE SHOT ****************************
     public void AwardPoints( int point)
     { 
         if (currentPoints  < maxPoints)
@@ -117,5 +118,20 @@ public class GameManager : MonoBehaviour
         oneShotBar.SetPoints(0);
         currentPoints = minPoints;
         oneShotAwarded = false;
+    }
+    // ****************** WIN ****************************
+    public void WinLevel()
+    {
+        winLevelText.SetActive(true);
+        nextButton.SetActive(true);
+        gameOver = true;
+
+    }
+    // ****************** GAME OVER ****************************
+    public void GameOver()
+    {
+        gameOverText.SetActive(true);
+        restartButton.SetActive(true);
+        gameOver = true;
     }
 }
