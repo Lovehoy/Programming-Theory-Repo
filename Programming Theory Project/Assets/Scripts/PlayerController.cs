@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
     private List<GameObject> activeParticles = new List<GameObject>(); // Store references to active particle systems
 
     public GameObject shootParticlePrefab; // Reference to the shoot particle effect prefab
-
     private GameObject shootParticleInstance; // Instance of the shoot particle effect
     void Start()
     {
@@ -236,6 +235,7 @@ public void ShootOneShot()
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;
             GameManager.ResetPoints();
+
        }
 }
     public bool HasAward()
@@ -251,29 +251,36 @@ public void ShootOneShot()
         // if Player collides with Enemy, then "Game Over!"
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            
-            gameOver = true;
-            animator.SetBool("Die", true);
-            Debug.Log("Game Over!");
-
-            rb.mass = 0f;
-            float deathFloatForce = 1f;
-            rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
-            GameManager.GameOver();
+            Debug.Log("Minion kill");
+            Die();
         }
        
         if (collision.gameObject.CompareTag("Boss"))
         {
-
-            gameOver = true;
-            animator.SetBool("Die", true);
             Debug.Log("Boss Killed Player");
+            Die();
 
-            rb.mass = 0f;
-            float deathFloatForce = 1f;
-            rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
-            GameManager.GameOver();
         }
+
+        /// ############ Problems with Barrel instantiation. Possibly return to later
+       // if (oneShotAwarded && collision.gameObject.CompareTag("Barrel"))
+       // {
+        //    Debug.Log("Barrel kill");
+        //    Die();
+      //  }
+
+    }
+
+    public void Die()
+    {
+        gameOver = true;
+        animator.SetBool("Die", true);
+        Debug.Log("Died");
+
+        rb.mass = 0f;
+        float deathFloatForce = 1f;
+        rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
+        GameManager.GameOver();
     }
 
     // ************** PARTICLES *****************
