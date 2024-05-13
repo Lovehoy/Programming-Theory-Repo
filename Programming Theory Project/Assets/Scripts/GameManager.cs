@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private static bool s_permanentInstance = false; // set to true if you ever only want one instance among all scenes and drop an instance of GameManager in your first scene you load
     public bool oneShotAwarded = false;
     public bool gameOver = false;
+    public bool levelWon = false;
+
 
     public static GameManager Instance { get; private set; }
 
@@ -117,5 +119,27 @@ public class GameManager : MonoBehaviour
         oneShotBar.SetPoints(0);
         currentPoints = minPoints;
         oneShotAwarded = false;
+<<<<<<< Updated upstream
+=======
+      //  Barrel.StopBurning();
+      //  OnOneShotAwardedChanged.Invoke(oneShotAwarded);
+    }
+    // ****************** WIN ****************************
+    public void WinLevel()
+    {
+        winLevelText.SetActive(true);
+        nextButton.SetActive(true);
+        levelWon = true;
+
+    }
+    // ****************** GAME OVER ****************************
+    public void GameOver()
+    { if (!levelWon)
+        {
+            gameOverText.SetActive(true);
+            restartButton.SetActive(true);
+            gameOver = true;
+        }
+>>>>>>> Stashed changes
     }
 }

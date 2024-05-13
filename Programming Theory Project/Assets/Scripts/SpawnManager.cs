@@ -80,7 +80,7 @@ public class SpawnManager : MonoBehaviour
     Vector3 RandomizeSpawnPosition()
     {
         // Define the range within which minions can spawn
-        float spawnRange = 3;
+        float spawnRange = .5f;
 
         // Generate random spawn position within the defined range
         float spawnPosX = UnityEngine.Random.Range(-spawnRange, spawnRange);
