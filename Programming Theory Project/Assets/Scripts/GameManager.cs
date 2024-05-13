@@ -21,9 +21,13 @@ public class GameManager : MonoBehaviour
     public int currentPoints;
 
     public Text ScoreText;
+    public GameObject winLevelText;
+
 
     public GameObject gameOverText;
     public GameObject restartButton;
+    public GameObject nextButton;
+    
 
     public OneShotBar oneShotBar;
     public PlayerController playerController;
@@ -86,12 +90,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Update passsed Award One Shot");
         }
     }
-    public void GameOver()
-    {
-        gameOverText.SetActive(true);
-        restartButton.SetActive(true);
-        gameOver = true;
-    }
+
 
     public void AwardPoints( int point)
     { 
@@ -119,8 +118,7 @@ public class GameManager : MonoBehaviour
         oneShotBar.SetPoints(0);
         currentPoints = minPoints;
         oneShotAwarded = false;
-<<<<<<< Updated upstream
-=======
+
       //  Barrel.StopBurning();
       //  OnOneShotAwardedChanged.Invoke(oneShotAwarded);
     }
@@ -140,6 +138,6 @@ public class GameManager : MonoBehaviour
             restartButton.SetActive(true);
             gameOver = true;
         }
->>>>>>> Stashed changes
+
     }
 }
