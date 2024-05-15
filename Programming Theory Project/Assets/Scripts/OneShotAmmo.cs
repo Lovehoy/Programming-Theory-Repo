@@ -29,6 +29,7 @@ public class OneShotAmmo : Ammo
             {
                 Destroy(other.gameObject);
                 Debug.Log("You Win! Boss Defeated!");
+                gameManager.WinLevel();
             }
 
             else if (other.CompareTag("DeathZone"))

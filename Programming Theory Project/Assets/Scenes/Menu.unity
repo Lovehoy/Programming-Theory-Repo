@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 243700221}
   - component: {fileID: 243700220}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: Start (Next Level) Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 378423418}
         m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -300,6 +300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aff934ea479a4d4d94a7058d478c2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseText: {fileID: 0}
+  MainMenuButton: {fileID: 0}
+  RestartButton: {fileID: 0}
 --- !u!1 &576742003
 GameObject:
   m_ObjectHideFlags: 0

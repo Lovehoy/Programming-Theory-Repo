@@ -1075,12 +1075,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oneShotAwarded: 0
   gameOver: 0
+  levelWon: 0
   currentPoints: 0
   ScoreText: {fileID: 0}
+  winLevelText: {fileID: 1456634978}
   gameOverText: {fileID: 1937480259}
   restartButton: {fileID: 401319420}
-  winLevelText: {fileID: 1456634978}
   nextButton: {fileID: 1168927945}
+  oneShotBar: {fileID: 0}
+  playerController: {fileID: 0}
   playerPrefab: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}
 --- !u!4 &218375024
 Transform:
@@ -3263,7 +3266,7 @@ Transform:
   m_GameObject: {fileID: 1069758797}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.22, y: 8.12, z: -2.723301}
+  m_LocalPosition: {x: 0.22, y: 0.22, z: -2.723301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

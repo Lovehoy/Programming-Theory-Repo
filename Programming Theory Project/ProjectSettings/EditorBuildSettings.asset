@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 0abc9cfbb9d539c4192cbe2537ce63e0
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: ac8e6ecda040f3349bedc98f27552203
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -17,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Barrel Bounce.unity
     guid: 5cbd604dde8796a4199b300e7e0e2625
+  - enabled: 1
+    path: Assets/Scenes/Enter the Den.unity
+    guid: 5129a79801b63574691c00901b8a75a1
   m_configObjects: {}
