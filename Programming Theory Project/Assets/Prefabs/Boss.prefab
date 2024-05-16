@@ -209,6 +209,8 @@ GameObject:
   - component: {fileID: 5277099582659435882}
   - component: {fileID: 3477768773723151395}
   - component: {fileID: -6297198987850999530}
+  - component: {fileID: 2027557944034655859}
+  - component: {fileID: 3064249063720131865}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Boss
@@ -297,12 +299,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.134493, y: 3.0013504, z: 3.4357536}
-  m_Center: {x: 0.16652098, y: 1.2464485, z: -0.23512095}
+  m_Size: {x: 2.2193027, y: 2.555106, z: 1.4553459}
+  m_Center: {x: 0.34140274, y: 1.2532567, z: 0.13322508}
 --- !u!114 &-6297198987850999530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +317,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55d67b1f0ad0a2246b1e9a2c07cf6b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 3064249063720131865}
+--- !u!54 &2027557944034655859
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175757097345803727}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!95 &3064249063720131865
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175757097345803727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 64e2ef14a02f69a4b94edbee54ca296a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2359187641942697818
 GameObject:
   m_ObjectHideFlags: 0

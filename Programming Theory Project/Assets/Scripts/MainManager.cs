@@ -77,8 +77,17 @@ public class MainManager : MonoBehaviour
         // Get the index of the current active scene
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Load the next scene by incrementing the current scene index
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        // Check if the current scene is the last scene in the build settings
+        if (currentSceneIndex >= SceneManager.sceneCountInBuildSettings - 1)
+        {
+            // Load the first scene
+            SceneManager.LoadScene(0);
+        }
+        else
+        {
+            // Load the next scene by incrementing the current scene index
+            SceneManager.LoadScene(currentSceneIndex + 1);
+        }
     }
 
     // public void StartGame()

@@ -743,6 +743,7 @@ MonoBehaviour:
   oneShotBar: {fileID: 0}
   playerController: {fileID: 0}
   playerPrefab: {fileID: 675621058513244702, guid: 1be7e2a15a4f1b748856c2180c5ac815, type: 3}
+  boss: {fileID: 0}
 --- !u!4 &218375024
 Transform:
   m_ObjectHideFlags: 0
@@ -1930,7 +1931,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Paused
+  m_text: Walled Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
