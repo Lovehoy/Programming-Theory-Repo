@@ -26,13 +26,16 @@ public class DeathZone : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        else if (other.CompareTag("Player"))
+       if (other.CompareTag("Player"))
         {
             GameManager.GameOver();
-            Debug.Log("Player in DeathZone");
-            // Destroy the Ammo object
+            Destroy(other.gameObject);
+        }
+        
+        if (other.CompareTag("Boss"))
+        {
+            GameManager.WinLevel();
             Destroy(other.gameObject);
         }
     }
-    // when player trigger, GameManager.GameOver()
 }

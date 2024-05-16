@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     public OneShotBar oneShotBar;
     public PlayerController playerController;
 
-    public GameObject playerPrefab; // Reference to the player prefab
+    public GameObject playerPrefab; 
+    public GameObject boss;
 
     private GameObject playerInstance; // Instance of the player GameObject
     // Start is called before the first frame update
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
         }
 
         oneShotBar.SetMinPoints(minPoints);
+        GameObject boss = GameObject.FindWithTag("Boss");
     }
 
     private void Update()
@@ -88,6 +90,16 @@ public class GameManager : MonoBehaviour
         {
             AwardOneShot(maxPoints);
             Debug.Log("Update passsed Award One Shot");
+        }
+
+        if (playerPrefab = null)
+        {
+            GameOver();
+        }
+
+     if (boss = null)
+        {
+            GameOver();
         }
     }
 
