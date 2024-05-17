@@ -43,12 +43,17 @@ public class PlayerController : MonoBehaviour
 
     public GameObject shootParticlePrefab; // Reference to the shoot particle effect prefab
     private GameObject shootParticleInstance; // Instance of the shoot particle effect
+
+    public AudioClip[] shootClips; // Array to hold the audio clips
+    public AudioClip OneShotClip; 
+    public AudioClip DieClip;
+    private AudioSource audioSource; // Reference to the AudioSource component
     void Start()
     {
         animator = GetComponent<Animator>();
         //jump = new Vector3(0.0f, .5f, 0.0f);
         GameManager = FindObjectOfType<GameManager>(); // Find the GameManager instance in the scene
-        //currentPoints = minPoints;
+        audioSource = GetComponent<AudioSource>(); // Get the AudioSource component
     }
 
     public void Update()
@@ -191,7 +196,7 @@ public class PlayerController : MonoBehaviour
             {
                 pooledProjectile.SetActive(true);
                 projectilesFired++;
-                //isShooting = false;
+                PlayShootClip();
             }
             // else
             // {
@@ -201,6 +206,16 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    private void PlayShootClip()
+    {
+        if (shootClips.Length > 0)
+        {
+            // Pick a random clip from the array
+            AudioClip clipToPlay = shootClips[Random.Range(0, shootClips.Length)];
+            audioSource.PlayOneShot(clipToPlay);
+        }
+    }
+
     private bool CanShoot()
     {
         // Check if the number of projectiles fired is less than the maximum allowed
@@ -232,9 +247,11 @@ public void ShootOneShot()
            {
         Instantiate(oneShotPrefab);
             //animator.SetTrigger("Shoot");
+            audioSource.PlayOneShot(OneShotClip);
             Debug.Log("ONE SHOT SHOT");
             oneShotAwarded = false;
             GameManager.ResetPoints();
+
 
        }
 }
@@ -273,14 +290,17 @@ public void ShootOneShot()
 
     public void Die()
     {
-        gameOver = true;
-        animator.SetBool("Die", true);
-        Debug.Log("Died");
-
-        rb.mass = 0f;
-        float deathFloatForce = 1f;
-        rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
-        GameManager.GameOver();
+        if (!gameOver)
+        {
+            gameOver = true;
+            animator.SetBool("Die", true);
+            Debug.Log("Died");
+            audioSource.PlayOneShot(DieClip);
+            rb.mass = 0f;
+            float deathFloatForce = 1f;
+            rb.AddForce(Vector3.up * deathFloatForce, ForceMode.Acceleration);
+            GameManager.GameOver();
+        }
     }
 
     // ************** PARTICLES *****************
