@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyMinion : MonoBehaviour
 {
-    public float speed = 1f;
+     float speed = 4f;
 
     public GameObject player;
 
